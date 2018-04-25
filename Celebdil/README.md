@@ -1,4 +1,2 @@
 # Celebdil
-  > Backend repo
-
-- [ ] what lang for backend?
+  > JAVA Backend repo

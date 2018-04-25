@@ -1,4 +1,2 @@
 # Dwimorberg
-  > Database
-
-- [ ] MongoDB or SQL ?
+  > SQL Database
