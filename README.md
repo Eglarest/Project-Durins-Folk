@@ -7,7 +7,8 @@ Project Durin's Folk
 |-- Celebdil - Backend repo
 |    |-- ..
 |-- Dwimorberg - Database
-|    |-- ..
+|    |-- Dimholt - Application db
+|    |-- Dunharrow - User Authentication
 |-- Mirrormere - Frontend repo
 |    |-- ..
 |-- Morannon - Other
