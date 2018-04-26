@@ -61,3 +61,14 @@ typings/
 Dwimorberg/Dunharrow/*
 # Application db
 Dwimorberg/Dimholt/*
+
+# Gradle
+.gradle/*
+*/.gradle/*
+
+# Editor
+.idea/*
+*/.idea/*
+
+# Build Resources
+Celebdil/build/*

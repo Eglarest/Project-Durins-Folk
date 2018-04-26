@@ -7,6 +7,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'net.ltgt.apt' version '0.10'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -18,6 +22,8 @@ bootJar {
     version =  '0.1.0'
 }
 
+
+
 repositories {
     mavenCentral()
 }
@@ -28,4 +34,8 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+
+    apt "org.projectlombok:lombok:1.16.20"
 }

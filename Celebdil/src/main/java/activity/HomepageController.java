@@ -1,10 +1,11 @@
-package activity;
+package main.java.activity;
 
-import java.util.concurrent.atomic.AtomicLong;
+import main.java.data.Message;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import data.Message;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class HomepageController {
@@ -14,6 +15,6 @@ public class HomepageController {
 
     @RequestMapping("/home")
     public Message greeting(@RequestParam(value="name", defaultValue="User") String name) {
-        return new Message(counter.incrementAndGet(), String.format(greeting, name), "Keegan", "Anna");
+        return new Message();
     }
 }
