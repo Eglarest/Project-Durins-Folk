@@ -51,6 +51,9 @@ potentially: ./gradlew for another operating system
 
 * /user
 * /home
+  * ?name={USER}
+* /events
+  * ?name={USER}
 
 ### Setting up IntelliJ:
 Project is Celebdil
