@@ -1,14 +1,14 @@
 package main.java.activity;
 
-import main.java.data.Address;
 import main.java.data.User;
+import main.java.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.UUID;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -24,20 +24,16 @@ public class UserController {
     public static final String TITLE_KEY = "title";
     public static final String ADDRESS_KEY = "address";
 
+    @Autowired
+    private UserService userService;
+
     /**
      * This API will take a user (probably by UUID) and return information about the user
      * @return
      */
     @RequestMapping(method = GET, value = "/get-user")
     public @ResponseBody User getUserData(@RequestParam(value="name", defaultValue="User") String name) {
-        User user = new User();
-        user.setTitle("Sir");
-        user.setFirstName(name);
-        user.setMiddleName("The");
-        user.setSurName("Fearless");
-        user.setSuffix("II");
-        user.setAccountNumber(UUID.randomUUID());
-        user.setAddress(new Address());
+        User user = userService.getUsersByName(name)[0];
         return user;
     }
 
@@ -54,8 +50,7 @@ public class UserController {
         user.setMiddleName(allParams.get(MIDDLE_NAME_KEY));
         user.setSurName(allParams.get(SUR_NAME_KEY));
         user.setSuffix(allParams.get(SUFFIX_KEY));
-        user.setAccountNumber(UUID.randomUUID());
         user.setAddress(null);
-        return user;
+        return userService.createNewUser(user);
     }
 }

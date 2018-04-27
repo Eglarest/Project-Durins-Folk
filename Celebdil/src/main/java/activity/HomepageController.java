@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -24,7 +25,7 @@ public class HomepageController {
     @RequestMapping(method = GET, value = "/home")
     public @ResponseBody Message greeting(@RequestParam(value="name", defaultValue="User") String name) {
         Message initialGreeting = new Message();
-        initialGreeting.setId(counter.incrementAndGet());
+        initialGreeting.setId(UUID.randomUUID());
         initialGreeting.setContent("Welcome to Project-Durins-Folk! Sit back and have an ale!");
         initialGreeting.setFrom("Durin");
         initialGreeting.setTo(name);
