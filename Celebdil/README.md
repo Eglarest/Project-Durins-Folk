@@ -27,6 +27,23 @@ Celebdil/src/main/java
       *   database
     - Add data as necessary
   - [ ] Get "Business objectives" for p0 (minimal viable product)
+    -  We need the following APIs working for p0 (working list):
+      - [ ] /login
+        - log in a created user
+      - [ ] /get-user
+        - get and return a user their correct data
+      - [ ] /get-group
+        - get a groups details
+      - [X] /home
+        - provide a personalized home message to a user
+      - [ ] /user-events
+        - provide a user's events for at least 1 day
+      - [ ] /group-events
+        - provide a group's events for at least 1 day
+      - [ ] unnamed
+        - allow a user to join a created event
+      - [ ] unnamed
+        - allow a user to create an event
   - [ ] Release backend API support for p0 (v0)
 
 ## DEPENDENCIES
@@ -47,13 +64,14 @@ In Celebdil run:
 
 potentially: ./gradlew for another operating system
 
-## Currently supported APIs
+## Currently "supported" APIs
 
-* /user
+* /user-events
+* /group-events
 * /home
-  * ?name={USER}
-* /events
-  * ?name={USER}
+* /login
+* /create-user
+* /get-user
 
 ### Setting up IntelliJ:
 Project is Celebdil
