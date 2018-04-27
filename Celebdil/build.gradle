@@ -38,4 +38,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.20'
 
     apt "org.projectlombok:lombok:1.16.20"
+
+    compile 'com.google.guava:guava:24.1-jre'
 }

@@ -54,6 +54,7 @@ Spring-boot               : 2.0.1
 Spring-boot-autoconfigure : 2.0.1
 lombok                    : 1.16.20
 Gradle                    : past 2.12 (??)
+Guava                     : 24.1-jre
 
 ## BUILD ON WINDOWS
 In Celebdil run:
@@ -86,7 +87,8 @@ File -> Project Structure
   * Add folder containing:
     * Spring-boot and Spring-boot-autoconfigure
   * Add lombok 1.16.20 jar file
-* Libraries
+  * Add guava 24.1-jre jar file
+* Libraries // This may not be necessary
   * Add lombok - jar file
 
 File -> Settings
@@ -105,5 +107,16 @@ File -> Settings
 * Editor -> Color Scheme
   * Set to 'Darcula' so you don't go blind
 
-Spotify: https://open.spotify.com/user/keegansymmes/playlist/4WebbTLBrqL7QNfZJXnJUK?si=-v55pIf5Q3e1EurXFY2JBA
-* Add something worth listening to (preferences for hobbit and dwarf music)
+### Suggested Supplemental Software
+
+IDE:
+* IntelliJ
+  * Smart IDE with built in Dark mode and auto import
+Test Software:
+* Postman
+  * Software to help make GET and POST requests to a service
+  * Can also save a list of requests to run, which can generate a nice manual test suite while we wait on unit tests
+Music:
+* Spotify
+  * https://open.spotify.com/user/keegansymmes/playlist/4WebbTLBrqL7QNfZJXnJUK?si=-v55pIf5Q3e1EurXFY2JBA
+    * Add something worth listening to (preference for hobbit and dwarf music)
