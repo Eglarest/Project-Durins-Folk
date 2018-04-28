@@ -4,10 +4,12 @@ import main.java.data.Address;
 import main.java.data.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
- * A service class for handling user logic
+ * A service class for handling User logic
  */
 @Service
 public class UserService {
@@ -34,16 +36,19 @@ public class UserService {
      * @param string
      * @return
      */
-    public User[] getUsersByString(String string) {
+    public List<User> getUsersByString(String string) {
         // TODO: Get Users who have similar or matching names
         User user = getUserByAccountNumber(UUID.randomUUID());
         user.setFirstName(string);
-        User[] users = new User[]{user,user,user};
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(user);
+        users.add(user);
         return users;
     }
 
     /**
-     * Create a new User object. We will not yet know their AccountNumber.
+     * Create a new User. We will not yet know their AccountNumber.
      * @param user
      * @return
      */

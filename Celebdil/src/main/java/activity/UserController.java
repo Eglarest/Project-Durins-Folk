@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,9 +44,9 @@ public class UserController {
      * This API will take a String and return user's with the string in parts of their profile.
      */
     @RequestMapping(method = GET, value = "/find-users")
-    public @ResponseBody User[] findUsersContaining(@RequestParam(value="search", defaultValue="") String string) {
+    public @ResponseBody List<User> findUsersContaining(@RequestParam(value="search", defaultValue="") String string) {
         if (Strings.isNullOrEmpty(string)) {
-            return new User[0];
+            return new ArrayList<>();
         }
         return userService.getUsersByString(string);
     }

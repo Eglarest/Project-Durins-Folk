@@ -5,7 +5,7 @@ import main.java.data.LoginCredentials;
 import org.springframework.stereotype.Service;
 
 /**
- * A service class for handling credential logic
+ * A service class for handling Credential logic
  */
 @Service
 public class CredentialService {

@@ -32,7 +32,7 @@ Celebdil/src/main/java
         - log in a created user
       - [ ] /get-user
         - get and return a user their correct data
-      - [ ] /get-group
+      - [ ] /get-user-group
         - get a groups details
       - [X] /home
         - provide a personalized home message to a user
@@ -44,6 +44,8 @@ Celebdil/src/main/java
         - allow a user to join a created event
       - [ ] unnamed
         - allow a user to create an event
+      - [ ] /add-user-to-group
+        - allow a user to join a created group
   - [ ] Release backend API support for p0 (v0)
 
 ## DEPENDENCIES
@@ -75,13 +77,19 @@ potentially: ./gradlew for another operating system
 
 ### Turbulent
 
+* /login
+
 ### Highly Turbulent
 
 * /user-events
 * /group-events
-* /login
 * /create-user
 * /get-user
+* /find-users
+* /get-user-group
+* /find-user-groups
+* /add-user-to-group
+* /create-user-group
 
 ### Setting up IntelliJ:
 Project is Celebdil

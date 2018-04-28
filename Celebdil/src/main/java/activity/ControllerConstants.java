@@ -14,5 +14,6 @@ public class ControllerConstants {
     public static final String SUFFIX_KEY = "suffix";
     public static final String TITLE_KEY = "title";
     public static final String ADDRESS_KEY = "address";
+    public static final String GROUP_NAME_KEY = "groupName";
 
 }

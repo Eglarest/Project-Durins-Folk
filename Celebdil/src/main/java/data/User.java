@@ -2,6 +2,7 @@ package main.java.data;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -14,5 +15,6 @@ public class User {
     private String suffix;
     private UUID accountNumber;
     private Address address;
+    private Date joinDate;
 
 }

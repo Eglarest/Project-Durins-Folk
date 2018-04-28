@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A service class for handling Event logic
+ */
 @Service
 public class EventService {
 
