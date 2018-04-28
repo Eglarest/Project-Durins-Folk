@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+import static main.java.activity.ControllerConstants.PASSWORD_KEY;
+import static main.java.activity.ControllerConstants.USERNAME_KEY;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class LoginController {
-
-    // Keys for allParams
-    public final String USERNAME_KEY = "username";
-    public final String PASSWORD_KEY = "password";
 
     @Autowired
     CredentialService credentialService;

@@ -31,13 +31,13 @@ public class UserService {
 
     /**
      * Get a list of Users who have similar or the same name as provided
-     * @param name
+     * @param string
      * @return
      */
-    public User[] getUsersByName(String name) {
+    public User[] getUsersByString(String string) {
         // TODO: Get Users who have similar or matching names
         User user = getUserByAccountNumber(UUID.randomUUID());
-        user.setFirstName(name);
+        user.setFirstName(string);
         User[] users = new User[]{user,user,user};
         return users;
     }

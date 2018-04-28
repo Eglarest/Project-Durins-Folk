@@ -3,83 +3,64 @@ package main.java.activity;
 import main.java.data.Address;
 import main.java.data.Event;
 import main.java.data.User;
+import main.java.data.UserGroup;
+import main.java.service.EventService;
+import main.java.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static main.java.activity.ControllerConstants.ACCOUNT_NUMBER_KEY;
+import static main.java.activity.ControllerConstants.GROUP_ID_KEY;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class EventController {
 
-    // TODO: This will be a POST Request once we have the infrastructure in place to handle it
-    // (we are leaving it as available as possible for frontend development)
+    @Autowired
+    EventService eventService;
+
+    @Autowired
+    UserService userService;
+
     /**
      * This API will take in the user (probably through their UUID) and a range of Dates (probably must
      * be consecutive for now) and return an array containing all of the events that user currently has
      * on their calendar for those days (past -> attended, future -> planning to attend/undecided)
-     * @param name
      * @return
      */
-    @RequestMapping(method = GET, value = "/user-events")
-    public @ResponseBody Event[] getUserEvents(@RequestParam(value="name", defaultValue="User") String name) {
-        User user = new User();
-        user.setTitle("Sir");
-        user.setFirstName(name);
-        user.setMiddleName("The");
-        user.setSurName("Fearless");
-        user.setSuffix("III");
-        user.setAccountNumber(UUID.randomUUID());
-        Address address = new Address();
-        user.setAddress(address);
-        Event event = new Event();
-        event.setAddress(address);
-        event.setActivities(null);
-        event.setLength(new Date());
-        event.setParent(null);
-        event.setStartDate(new Date());
-        ArrayList<User> users = new ArrayList<>();
-        users.add(user);
-        event.setAttendingUsers(users);
-        Event[] events = {event, event, event};
-        return events;
+    @RequestMapping(method = POST, value = "/user-events")
+    public @ResponseBody List<Event> getUserEvents(@RequestParam Map<String, String> allParams) {
+        User user = userService.getUserByAccountNumber(UUID.fromString(allParams.get(ACCOUNT_NUMBER_KEY)));
+        return eventService.getEventsByUserForDate(user, new Date());
     }
 
-    // TODO: This will be a POST Request once the infrastructure is in place to handle it
-    // (we are leaving it as available as possible for frontend development)
     /**
      * This API will take in the group (probably through their UUID) and a range of Dates (probably must
      * be consecutive for now) and return an array containing all of the events that group currently has
      * on their calendar for those days (past -> attended, future -> planning to attend/undecided)
-     * @param group
      * @return
      */
-    @RequestMapping(method = GET, value = "/group-events")
-    public @ResponseBody Event[] getGroupEvents(@RequestParam(value="group", defaultValue="User") String group) {
+    @RequestMapping(method = POST, value = "/group-events")
+    public @ResponseBody List<Event> getGroupEvents(@RequestParam Map<String, String> allParams) {
         User user = new User();
         user.setTitle("Sir");
-        user.setFirstName(group + " members");
+        user.setFirstName(allParams.get(GROUP_ID_KEY) + " member");
         user.setMiddleName("The");
         user.setSurName("Fearless");
         user.setSuffix("III");
         user.setAccountNumber(UUID.randomUUID());
-        Address address = new Address();
-        user.setAddress(address);
-        Event event = new Event();
-        event.setAddress(address);
-        event.setActivities(null);
-        event.setLength(new Date());
-        event.setParent(null);
-        event.setStartDate(new Date());
-        ArrayList<User> users = new ArrayList<>();
-        users.add(user);
-        event.setAttendingUsers(users);
-        Event[] events = {event, event, event};
-        return events;
+        user.setAddress(new Address());
+        UserGroup userGroup = new UserGroup();
+        userGroup.addMember(user);
+        userGroup.setGroupId(UUID.fromString(allParams.get(GROUP_ID_KEY)));
+        return eventService.getEventsByUserGroupForDate(userGroup, new Date());
     }
 }

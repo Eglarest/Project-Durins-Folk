@@ -1,5 +1,6 @@
 package main.java.activity;
 
+import com.google.common.base.Strings;
 import main.java.data.User;
 import main.java.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +10,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.UUID;
 
+import static main.java.activity.ControllerConstants.ACCOUNT_NUMBER_KEY;
+import static main.java.activity.ControllerConstants.FIRST_NAME_KEY;
+import static main.java.activity.ControllerConstants.MIDDLE_NAME_KEY;
+import static main.java.activity.ControllerConstants.SUFFIX_KEY;
+import static main.java.activity.ControllerConstants.SUR_NAME_KEY;
+import static main.java.activity.ControllerConstants.TITLE_KEY;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class UserController {
-
-    // Keys for allParams
-    public static final String FIRST_NAME_KEY = "firstName";
-    public static final String MIDDLE_NAME_KEY = "middleName";
-    public static final String SUR_NAME_KEY = "surName";
-    public static final String SUFFIX_KEY = "suffix";
-    public static final String TITLE_KEY = "title";
-    public static final String ADDRESS_KEY = "address";
 
     @Autowired
     private UserService userService;
@@ -31,10 +31,22 @@ public class UserController {
      * This API will take a user (probably by UUID) and return information about the user
      * @return
      */
-    @RequestMapping(method = GET, value = "/get-user")
-    public @ResponseBody User getUserData(@RequestParam(value="name", defaultValue="User") String name) {
-        User user = userService.getUsersByName(name)[0];
+    @RequestMapping(method = POST, value = "/get-user")
+    public @ResponseBody User getUserData(@RequestParam Map<String,String> allParams) {
+        String accountNumber = allParams.get(ACCOUNT_NUMBER_KEY);
+        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumber));
         return user;
+    }
+
+    /**
+     * This API will take a String and return user's with the string in parts of their profile.
+     */
+    @RequestMapping(method = GET, value = "/find-users")
+    public @ResponseBody User[] findUsersContaining(@RequestParam(value="search", defaultValue="") String string) {
+        if (Strings.isNullOrEmpty(string)) {
+            return new User[0];
+        }
+        return userService.getUsersByString(string);
     }
 
     /**

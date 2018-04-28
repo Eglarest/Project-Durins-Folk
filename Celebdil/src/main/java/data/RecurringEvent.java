@@ -3,16 +3,17 @@ package main.java.data;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class RecurringEvent {
 
-    private Activity[] activities;
+    private List<Activity> activities;
     private Date startdate;
     private Date length;
     private Date frequency;
     private Date endDate;
-    private Event[] children;
+    private List<Event> children;
     private Address address;
 
 }

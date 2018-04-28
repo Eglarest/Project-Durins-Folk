@@ -67,9 +67,18 @@ potentially: ./gradlew for another operating system
 
 ## Currently "supported" APIs
 
+### Stable
+
+### Mostly Stable
+
+* /home
+
+### Turbulent
+
+### Highly Turbulent
+
 * /user-events
 * /group-events
-* /home
 * /login
 * /create-user
 * /get-user

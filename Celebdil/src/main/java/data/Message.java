@@ -2,6 +2,7 @@ package main.java.data;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -11,5 +12,6 @@ public class Message {
     private String content;
     private String from;
     private String to;
+    private Date date;
 
 }

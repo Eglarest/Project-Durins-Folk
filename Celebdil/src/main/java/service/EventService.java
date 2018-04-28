@@ -1,0 +1,51 @@
+package main.java.service;
+
+import main.java.data.Event;
+import main.java.data.User;
+import main.java.data.UserGroup;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Service
+public class EventService {
+
+    public List<Event> getEventsByUserForDate(User user, Date date) {
+        Event event = new Event();
+        event.setAddress(user.getAddress());
+        event.setActivities(new ArrayList<>());
+        Date length = new Date();
+        length.setTime(60000);
+        event.setLength(length);
+        event.setParent(null);
+        event.setStartDate(date);
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user);
+        event.setAttendingUsers(users);
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(event);
+        events.add(event);
+        events.add(event);
+        return events;
+    }
+
+    public List<Event> getEventsByUserGroupForDate(UserGroup userGroup, Date date) {
+        Event event = new Event();
+        event.setAddress(userGroup.getAddress());
+        event.setActivities(new ArrayList<>());
+        Date length = new Date();
+        length.setTime(60000);
+        event.setLength(length);
+        event.setParent(null);
+        event.setStartDate(date);
+        ArrayList<User> users = new ArrayList<>(userGroup.getMembers());
+        event.setAttendingUsers(users);
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(event);
+        events.add(event);
+        events.add(event);
+        return events;
+    }
+}

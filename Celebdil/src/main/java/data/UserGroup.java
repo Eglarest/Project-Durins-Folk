@@ -2,6 +2,8 @@ package main.java.data;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -10,7 +12,15 @@ public class UserGroup {
     private String name;
     private UUID groupId;
     private User leader;
-    private User[] successor;
+    private List<User> successors;
     private Address address;
+    private List<User> members;
+
+    public void addMember(User user) {
+        if(members == null) {
+            members = new ArrayList<>();
+        }
+        members.add(user);
+    }
 
 }

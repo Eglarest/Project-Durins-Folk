@@ -3,6 +3,7 @@ package main.java.data;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Contact {
@@ -11,6 +12,6 @@ public class Contact {
     private User user2;
     private Date firstContact;
     private Date lastContact;
-    private Event[] sharedEvents;
+    private List<Event> sharedEvents;
 
 }
