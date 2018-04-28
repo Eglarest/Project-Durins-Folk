@@ -10,8 +10,8 @@ public class Message {
 
     private UUID id;
     private String content;
-    private String from;
-    private String to;
+    private UUID from;
+    private UUID to;
     private Date date;
 
 }

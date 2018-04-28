@@ -1,4 +1,4 @@
-package main.java.activity;
+package main.java.controller;
 
 import main.java.data.LoginCredentials;
 import main.java.service.CredentialService;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-import static main.java.activity.ControllerConstants.PASSWORD_KEY;
-import static main.java.activity.ControllerConstants.USERNAME_KEY;
+import static main.java.controller.ControllerConstants.PASSWORD_KEY;
+import static main.java.controller.ControllerConstants.USERNAME_KEY;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class LoginController {
 
     @Autowired
-    CredentialService credentialService;
+    private CredentialService credentialService;
 
     /**
      * This API is for validating user login requests. It takes a username/password combo and

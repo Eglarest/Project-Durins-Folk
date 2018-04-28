@@ -1,4 +1,4 @@
-package main.java.activity;
+package main.java.controller;
 
 import com.google.common.base.Strings;
 import main.java.data.Address;
@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static main.java.activity.ControllerConstants.ACCOUNT_NUMBER_KEY;
-import static main.java.activity.ControllerConstants.GROUP_ID_KEY;
-import static main.java.activity.ControllerConstants.GROUP_NAME_KEY;
+import static main.java.controller.ControllerConstants.ACCOUNT_NUMBER_KEY;
+import static main.java.controller.ControllerConstants.GROUP_ID_KEY;
+import static main.java.controller.ControllerConstants.GROUP_NAME_KEY;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -28,10 +28,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UserGroupController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserGroupService userGroupService;
+    private UserGroupService userGroupService;
 
     /**
      * This API will take a user (probably by UUID) and return information about the user

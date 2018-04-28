@@ -73,10 +73,9 @@ potentially: ./gradlew for another operating system
 
 ### Mostly Stable
 
-* /home
-
 ### Turbulent
 
+* /home
 * /login
 
 ### Highly Turbulent
@@ -90,6 +89,10 @@ potentially: ./gradlew for another operating system
 * /find-user-groups
 * /add-user-to-group
 * /create-user-group
+* /send-message
+* /get-messages-to
+* /get-messages-from
+* /get-messages-between
 
 ### Setting up IntelliJ:
 Project is Celebdil

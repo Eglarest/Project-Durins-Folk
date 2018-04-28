@@ -1,4 +1,4 @@
-package main.java.activity;
+package main.java.controller;
 
 import main.java.data.Address;
 import main.java.data.Event;
@@ -17,18 +17,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static main.java.activity.ControllerConstants.ACCOUNT_NUMBER_KEY;
-import static main.java.activity.ControllerConstants.GROUP_ID_KEY;
+import static main.java.controller.ControllerConstants.ACCOUNT_NUMBER_KEY;
+import static main.java.controller.ControllerConstants.GROUP_ID_KEY;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class EventController {
 
     @Autowired
-    EventService eventService;
+    private EventService eventService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
      * This API will take in the user (probably through their UUID) and a range of Dates (probably must

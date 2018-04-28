@@ -1,4 +1,4 @@
-package main.java.activity;
+package main.java.controller;
 
 public class ControllerConstants {
 
@@ -15,5 +15,8 @@ public class ControllerConstants {
     public static final String TITLE_KEY = "title";
     public static final String ADDRESS_KEY = "address";
     public static final String GROUP_NAME_KEY = "groupName";
+    public static final String MESSAGE_TO_KEY = "to";
+    public static final String MESSAGE_FROM_KEY = "from";
+    public static final String MESSAGE_CONTENT_KEY = "message";
 
 }

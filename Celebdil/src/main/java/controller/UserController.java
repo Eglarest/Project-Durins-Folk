@@ -1,4 +1,4 @@
-package main.java.activity;
+package main.java.controller;
 
 import com.google.common.base.Strings;
 import main.java.data.User;
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static main.java.activity.ControllerConstants.ACCOUNT_NUMBER_KEY;
-import static main.java.activity.ControllerConstants.FIRST_NAME_KEY;
-import static main.java.activity.ControllerConstants.MIDDLE_NAME_KEY;
-import static main.java.activity.ControllerConstants.SUFFIX_KEY;
-import static main.java.activity.ControllerConstants.SUR_NAME_KEY;
-import static main.java.activity.ControllerConstants.TITLE_KEY;
+import static main.java.controller.ControllerConstants.ACCOUNT_NUMBER_KEY;
+import static main.java.controller.ControllerConstants.FIRST_NAME_KEY;
+import static main.java.controller.ControllerConstants.MIDDLE_NAME_KEY;
+import static main.java.controller.ControllerConstants.SUFFIX_KEY;
+import static main.java.controller.ControllerConstants.SUR_NAME_KEY;
+import static main.java.controller.ControllerConstants.TITLE_KEY;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
