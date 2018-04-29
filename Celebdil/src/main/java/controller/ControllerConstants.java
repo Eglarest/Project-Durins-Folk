@@ -18,5 +18,8 @@ public class ControllerConstants {
     public static final String MESSAGE_TO_KEY = "to";
     public static final String MESSAGE_FROM_KEY = "from";
     public static final String MESSAGE_CONTENT_KEY = "message";
+    public static final String ACTIVITY_NAME_KEY = "activityName";
+    public static final String EVENT_NAME_KEY = "eventName";
+    public static final String EVENT_ID_KEY = "eventId";
 
 }

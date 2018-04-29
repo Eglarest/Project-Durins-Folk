@@ -40,9 +40,9 @@ Celebdil/src/main/java
         - provide a user's events for at least 1 day
       - [ ] /group-events
         - provide a group's events for at least 1 day
-      - [ ] unnamed
+      - [ ] /join-event
         - allow a user to join a created event
-      - [ ] unnamed
+      - [ ] /create-event
         - allow a user to create an event
       - [ ] /add-user-to-group
         - allow a user to join a created group
@@ -59,10 +59,13 @@ Gradle                    : past 2.12 (??)
 Guava                     : 24.1-jre
 
 ## BUILD ON WINDOWS
+Add the gradle.bat file's directory to your $PATH environment variable
+* you will need to close and reopen your terminal after this
 In Celebdil run:
-* gradle.bat bootRun
+* gradle bootRun
   * runs server: currently on port 8080
-* gradle.bat build
+  * just 'Ctrl-C' to stop the server
+* gradle build
   * builds the jar file (so you can run program somewhere else)
 
 potentially: ./gradlew for another operating system
@@ -94,7 +97,7 @@ potentially: ./gradlew for another operating system
 * /get-messages-from
 * /get-messages-between
 
-### Setting up IntelliJ:
+## Setting up IntelliJ:
 Project is Celebdil
 Right click on Celebdil/src
 * Mark Directory as -> Sources Root
@@ -127,7 +130,7 @@ File -> Settings
 * Editor -> Color Scheme
   * Set to 'Darcula' so you don't go blind
 
-### Suggested Supplemental Software
+## Suggested Supplemental Software
 
 IDE:
 * IntelliJ
@@ -140,3 +143,46 @@ Music:
 * Spotify
   * https://open.spotify.com/user/keegansymmes/playlist/4WebbTLBrqL7QNfZJXnJUK?si=-v55pIf5Q3e1EurXFY2JBA
     * Add something worth listening to (preference for hobbit and dwarf music)
+
+## Git help
+
+### Git Workflow: (to help minimize growing pains with git)
+
+1) Begin on local/master branch
+2) git pull
+3) git checkout -b newBranchName
+4) make changes and test changes
+5) git add <all changes> (git add Celebdil/src/* often works)
+6) git commit -a -m "Description of work"
+7) git rebase -i master **ONLY IF MORE THAN 1 COMMIT IN BRANCH**
+* this should open a text editor
+* change all commits EXCEPT the first from "pick" to "squash"
+* save and exit ('Esc' then :wq in vim)
+* this should bring up a second text editor
+* delete all commit messages except one, leaving the one describing what your changes are
+* save and exit
+8) git checkout master
+9) git pull
+10) git checkout newBranchName
+11) git rebase master
+* you may need to resolve some git conflicts:
+  * git status will tell you the files
+  * edit the files to choose the changes you want
+  * git rebase --continue
+12) git checkout master
+13) git pull
+* if this says 'Already up to date.' continue.
+* if not return to step 10.
+14) git merge newBranchName
+15) git push
+16) You can chose to clean up your local git if you wish
+* git branch -d newBranchName **This will delete your old working branch**
+
+### If you messed up
+
+git reset HEAD^ - will undo 1 commit
+
+If you made changes directly to your master branch:
+* git stash save
+* git checkout -b newBranchName
+* git stash apply
