@@ -22,7 +22,39 @@ public class UserGroup {
         if(members == null) {
             members = new ArrayList<>();
         }
-        members.add(user);
+        if(!members.contains(user)) {
+            members.add(user);
+        }
     }
 
+    public void addSuccessor(User user) {
+        if(successors == null) {
+            successors = new ArrayList<>();
+        }
+        if(!successors.contains(user)) {
+            successors.add(user);
+        }
+    }
+
+    public void removeMember(User user) {
+        if(members != null) {
+            members.remove(user);
+        }
+    }
+
+    public void removeSuccessor(User user) {
+        if(successors != null) {
+            successors.remove(user);
+        }
+    }
+
+    public User succeedLeader() {
+        leader = null;
+        if(successors != null && successors.size() > 0) {
+            int successor = (int)(Math.random()*successors.size());
+            leader = successors.get(successor);
+            successors.remove(successor);
+        }
+        return leader;
+    }
 }

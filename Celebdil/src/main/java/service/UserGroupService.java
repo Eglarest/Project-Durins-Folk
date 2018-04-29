@@ -39,6 +39,32 @@ public class UserGroupService {
         return true;
     }
 
+    public User setGroupLeader(UserGroup userGroup, User user) {
+        User oldLeader = userGroup.getLeader();
+        userGroup.setLeader(user);
+        return oldLeader;
+    }
+
+    public void addUserToSuccessors(UserGroup userGroup, User user) {
+        if(userGroup.getMembers() == null || !userGroup.getMembers().contains(user)) {
+            userGroup.addMember(user);
+        }
+        userGroup.addSuccessor(user);
+    }
+
+    public boolean removeUserFromGroup(UserGroup userGroup, User user) {
+        userGroup.removeMember(user);
+        userGroup.removeSuccessor(user);
+        if(user.equals(userGroup.getLeader())) {
+            User newLeader = userGroup.succeedLeader();
+            if(newLeader == null) {
+                // TODO: Delete group
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Create a new UserGroup. We will not yet know their AccountNumber.
      * @param userGroup
