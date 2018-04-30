@@ -80,10 +80,6 @@ public class EventController {
         Activity activity = activityService.getActivityByName(activityName);
         List<Activity> activities = new ArrayList<>();
         activities.add(activity);
-        User user = userService.getUserByAccountNumber(UUID.fromString(allParams.get(ACCOUNT_NUMBER_KEY)));
-        List<User> attendingUsers = new ArrayList<>();
-        attendingUsers.add(user);
-
         Date length = new Date();
         length.setTime(60000);
 
@@ -93,24 +89,18 @@ public class EventController {
         event.setLength(length);
         event.setAddress(new Address());
         event.setActivities(activities);
-        event.setAttendingUsers(attendingUsers);
         event.setName(eventName);
-        event.setEventId(UUID.randomUUID());
+        event = eventService.createNewEvent(event);
 
-        return event;
+        User user = userService.getUserByAccountNumber(UUID.fromString(allParams.get(ACCOUNT_NUMBER_KEY)));
+        return eventService.addUserToEvent(event, user);
     }
 
     @RequestMapping(method = POST, value = "/join-event")
     public @ResponseBody Event joinEvent(@RequestParam Map<String,String> allParams) {
-        String eventId = allParams.get(EVENT_ID_KEY);
+        Event event = eventService.getEventByEventId(UUID.fromString(allParams.get(EVENT_ID_KEY)));
         User user = userService.getUserByAccountNumber(UUID.fromString(allParams.get(ACCOUNT_NUMBER_KEY)));
-        List<User> attendingUsers = new ArrayList<>();
-        attendingUsers.add(user);
-        Event event = new Event();
-        event.setStartDate(new Date());
-        event.setName("Dummy Test");
-        event.setEventId(UUID.fromString(eventId));
-        event.setAttendingUsers(attendingUsers);
+        eventService.addUserToEvent(event, user);
         return event;
     }
 

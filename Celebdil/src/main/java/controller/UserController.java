@@ -48,7 +48,7 @@ public class UserController {
         if (Strings.isNullOrEmpty(string)) {
             return new ArrayList<>();
         }
-        return userService.getUsersByString(string);
+        return userService.findUsersByString(string);
     }
 
     /**

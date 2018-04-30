@@ -36,7 +36,7 @@ public class UserService {
      * @param string
      * @return
      */
-    public List<User> getUsersByString(String string) {
+    public List<User> findUsersByString(String string) {
         // TODO: Get Users who have similar or matching names
         User user = getUserByAccountNumber(UUID.randomUUID());
         user.setFirstName(string);

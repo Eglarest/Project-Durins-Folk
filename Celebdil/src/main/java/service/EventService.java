@@ -8,12 +8,26 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * A service class for handling Event logic
  */
 @Service
 public class EventService {
+
+    public Event getEventByEventId(UUID eventId) {
+        Event event = new Event();
+        event.setStartDate(new Date());
+        event.setName("Dummy Test");
+        event.setEventId(eventId);
+        return event;
+    }
+
+    public Event createNewEvent(Event event) {
+        event.setEventId(UUID.randomUUID());
+        return event;
+    }
 
     public List<Event> getEventsByUserForDate(User user, Date date) {
         Event event = new Event();
@@ -50,5 +64,10 @@ public class EventService {
         events.add(event);
         events.add(event);
         return events;
+    }
+
+    public Event addUserToEvent(Event event, User user) {
+        event.addAttendingUser(user);
+        return event;
     }
 }
