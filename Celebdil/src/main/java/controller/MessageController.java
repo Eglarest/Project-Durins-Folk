@@ -63,7 +63,7 @@ public class MessageController {
         return messageService.getMessagesFromUser(UUID.fromString(accountNumber));
     }
 
-    @RequestMapping(method =POST, value = "/get-messages-between")
+    @RequestMapping(method = POST, value = "/get-messages-between")
     public @ResponseBody List<Message> getMessagesBetweenUsers(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
         String accountNumber1 = allParams.get(MESSAGE_TO_KEY);
         String accountNumber2 = allParams.get(MESSAGE_FROM_KEY);

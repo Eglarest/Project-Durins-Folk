@@ -5,6 +5,7 @@ import main.java.data.Address;
 import main.java.data.User;
 import main.java.data.UserGroup;
 import main.java.exception.InvalidParameterException;
+import main.java.service.AddressService;
 import main.java.service.UserGroupService;
 import main.java.service.UserService;
 import main.java.service.ValidationService;
@@ -37,6 +38,9 @@ public class UserGroupController {
 
     @Autowired
     private ValidationService validationService;
+
+    @Autowired
+    private AddressService addressService;
 
     /**
      * This API will take a user (probably by UUID) and return information about the user
@@ -81,11 +85,12 @@ public class UserGroupController {
     @RequestMapping(method = POST, value = "/create-user-group")
     public @ResponseBody UserGroup createNewUserGroup(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
         String groupName = allParams.get(GROUP_NAME_KEY);
+        Address address = addressService.extractAddress(allParams);
 
         validationService.isNotNullOrEmpty(groupName, GROUP_NAME_KEY);
 
         UserGroup usergroup = new UserGroup();
-        usergroup.setAddress(new Address());
+        usergroup.setAddress(address);
         usergroup.setCreationDate(new Date());
         usergroup.setName(groupName);
         return userGroupService.createNewUserGroup(usergroup);

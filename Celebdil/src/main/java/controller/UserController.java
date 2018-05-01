@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import main.java.data.Address;
 import main.java.data.User;
 import main.java.exception.InvalidParameterException;
+import main.java.service.AddressService;
 import main.java.service.UserService;
 import main.java.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -34,6 +36,9 @@ public class UserController {
 
     @Autowired
     private ValidationService validationService;
+
+    @Autowired
+    private AddressService addressService;
 
     /**
      * This API will take a user (probably by UUID) and return information about the user
@@ -67,17 +72,19 @@ public class UserController {
     public @ResponseBody User createNewUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
         String firstName = allParams.get(FIRST_NAME_KEY);
         String surName = allParams.get(SUR_NAME_KEY);
+        Address address = addressService.extractAddress(allParams);
 
         validationService.isNotNullOrEmpty(firstName, FIRST_NAME_KEY);
         validationService.isNotNullOrEmpty(surName, SUR_NAME_KEY);
 
         User user = new User();
+        user.setJoinDate(new Date());
         user.setTitle(allParams.get(TITLE_KEY));
         user.setFirstName(firstName);
         user.setMiddleName(allParams.get(MIDDLE_NAME_KEY));
         user.setSurName(surName);
         user.setSuffix(allParams.get(SUFFIX_KEY));
-        user.setAddress(new Address());
+        user.setAddress(address);
         return userService.createNewUser(user);
     }
 }

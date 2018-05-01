@@ -28,4 +28,16 @@ public class ValidationService {
             throw new InvalidParameterException(String.format("%s; %s", description, genericException));
         }
     }
+
+    public void isInteger(String number, String description) throws InvalidParameterException {
+        String genericException = "Value must be integer";
+        if(Strings.isNullOrEmpty(number)) {
+            throw new InvalidParameterException(description + "; parameter cannot be null or empty.");
+        }
+        try {
+            Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            throw new InvalidParameterException(String.format("%s; %s", description, genericException));
+        }
+    }
 }

@@ -7,6 +7,7 @@ import main.java.data.User;
 import main.java.data.UserGroup;
 import main.java.exception.InvalidParameterException;
 import main.java.service.ActivityService;
+import main.java.service.AddressService;
 import main.java.service.EventService;
 import main.java.service.UserService;
 import main.java.service.ValidationService;
@@ -43,6 +44,9 @@ public class EventController {
 
     @Autowired
     private ValidationService validationService;
+
+    @Autowired
+    private AddressService addressService;
 
     /**
      * This API will take in the user (probably through their UUID) and a range of Dates (probably must
@@ -87,6 +91,7 @@ public class EventController {
         String accountNumberString = allParams.get(ACCOUNT_NUMBER_KEY);
         String eventName = allParams.get(EVENT_NAME_KEY);
         String activityName = allParams.get(ACTIVITY_NAME_KEY);
+        Address address = addressService.extractAddress(allParams);
 
         validationService.validateUUID(accountNumberString, ACCOUNT_NUMBER_KEY);
         validationService.isNotNullOrEmpty(eventName, EVENT_NAME_KEY);
@@ -103,7 +108,7 @@ public class EventController {
         event.setStartDate(new Date());
         event.setParent(null);
         event.setLength(length);
-        event.setAddress(new Address());
+        event.setAddress(address);
         event.setActivities(activities);
         event.setName(eventName);
         event = eventService.createNewEvent(event);

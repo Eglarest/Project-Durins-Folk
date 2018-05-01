@@ -21,5 +21,11 @@ public class ControllerConstants {
     public static final String ACTIVITY_NAME_KEY = "activityName";
     public static final String EVENT_NAME_KEY = "eventName";
     public static final String EVENT_ID_KEY = "eventId";
+    public static final String ADDRESS_NUMBER_KEY = "number";
+    public static final String ADDRESS_STREET_KEY = "street";
+    public static final String ADDRESS_CITY_KEY = "city";
+    public static final String ADDRESS_STATE_KEY = "state";
+    public static final String ADDRESS_ZIP_KEY = "zipCode";
+    public static final String ADDRESS_COUNTRY_KEY = "country";
 
 }
