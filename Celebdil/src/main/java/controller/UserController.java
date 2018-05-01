@@ -1,8 +1,11 @@
 package main.java.controller;
 
 import com.google.common.base.Strings;
+import main.java.data.Address;
 import main.java.data.User;
+import main.java.exception.InvalidParameterException;
 import main.java.service.UserService;
+import main.java.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,13 +32,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ValidationService validationService;
+
     /**
      * This API will take a user (probably by UUID) and return information about the user
      * @return
      */
     @RequestMapping(method = POST, value = "/get-user")
-    public @ResponseBody User getUserData(@RequestParam Map<String,String> allParams) {
+    public @ResponseBody User getUserData(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
         String accountNumber = allParams.get(ACCOUNT_NUMBER_KEY);
+        validationService.validateUUID(accountNumber, ACCOUNT_NUMBER_KEY);
         User user = userService.getUserByAccountNumber(UUID.fromString(accountNumber));
         return user;
     }
@@ -57,14 +64,20 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = POST, value = "/create-user")
-    public @ResponseBody User createNewUser(@RequestParam Map<String,String> allParams) {
+    public @ResponseBody User createNewUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+        String firstName = allParams.get(FIRST_NAME_KEY);
+        String surName = allParams.get(SUR_NAME_KEY);
+
+        validationService.isNotNullOrEmpty(firstName, FIRST_NAME_KEY);
+        validationService.isNotNullOrEmpty(surName, SUR_NAME_KEY);
+
         User user = new User();
         user.setTitle(allParams.get(TITLE_KEY));
-        user.setFirstName(allParams.get(FIRST_NAME_KEY));
+        user.setFirstName(firstName);
         user.setMiddleName(allParams.get(MIDDLE_NAME_KEY));
-        user.setSurName(allParams.get(SUR_NAME_KEY));
+        user.setSurName(surName);
         user.setSuffix(allParams.get(SUFFIX_KEY));
-        user.setAddress(null);
+        user.setAddress(new Address());
         return userService.createNewUser(user);
     }
 }
