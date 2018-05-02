@@ -17,3 +17,6 @@ Project Durin's Folk
 
 #### Prototype Link:
  > https://invis.io/QRHS8AZH3MF
+
+#### Confused by naming choices?
+[![project elrond](https://img.youtube.com/vi/watch?v=_YmDT2BgI-0.jpg)](https://www.youtube.com/watch?v=_YmDT2BgI-0)
