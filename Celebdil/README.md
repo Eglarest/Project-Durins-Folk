@@ -4,14 +4,19 @@
 ## Structure
 Celebdil/src/main/java
 * the starting path for tomcat/gradle
-* /activity
+* /controller
   * the entry point from the frontend
+  * transform to interior model and validate
 * /data
   * objects to represent our data
 * /service
   * the business logic
+  * should not "catch" exceptions (handle those at the endpoints)
 * /database
   * the entry point to the databases
+  * transform from interior model and validate/retry
+* /exception
+  * the exceptions specific to this service
 
   ### TODO
   - [X] Select java framework
@@ -47,6 +52,23 @@ Celebdil/src/main/java
       - [ ] /add-user-to-group
         - allow a user to join a created group
   - [ ] Release backend API support for p0 (v0)
+  - [ ] Finish controller logic
+    - [ ] EventController
+    - [ ] HomepageController
+    - [X] LoginController
+    - [X] MessageController
+    - [X] UserController
+    - [X] UserGroupController
+  - [ ] Finish service logic
+    - [ ] ActivityService
+    - [ ] AddressService
+    - [ ] CredentialService
+    - [ ] EventService
+    - [ ] MessageService
+    - [ ] UserGroupService
+    - [ ] UserService
+    - [ ] ValidationService
+  - [ ] Finish database logic
 
 ## DEPENDENCIES
 You will need the following packages (External Libraries):
@@ -62,10 +84,13 @@ Guava                     : 24.1-jre
 Add the gradle.bat file's directory to your $PATH environment variable
 * you will need to close and reopen your terminal after this
 In Celebdil run:
-* gradle bootRun
+* gradle bootRun --stacktrace
   * runs server: currently on port 8080
   * just 'Ctrl-C' to stop the server
-* gradle build
+  * if it takes over about 10 seconds without output the first time:
+    * 'Ctrl-C'
+    * Restart
+* gradle build --stacktrace
   * builds the jar file (so you can run program somewhere else)
 
 potentially: ./gradlew for another operating system
@@ -85,6 +110,8 @@ potentially: ./gradlew for another operating system
 
 * /user-events
 * /group-events
+* /join-event
+* /create-event
 * /create-user
 * /get-user
 * /find-users
@@ -96,6 +123,20 @@ potentially: ./gradlew for another operating system
 * /get-messages-to
 * /get-messages-from
 * /get-messages-between
+
+## Code Styles (unless you know better ones...)
+
+Best Practices:
+* no lines over 140 characters
+* no .* imports
+* use String.format(...) if more than 1 variable in String expression
+* use SOLID principles (When you can)
+* don't repeat code; if you're duplicating, pull it out into it's own method
+
+Suggestions:
+* 1 space between ) and {
+* never more than 1 blank line
+* no blank lines at the end of a method/class
 
 ## Setting up IntelliJ:
 Project is Celebdil

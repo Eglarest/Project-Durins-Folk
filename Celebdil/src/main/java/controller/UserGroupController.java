@@ -4,8 +4,11 @@ import com.google.common.base.Strings;
 import main.java.data.Address;
 import main.java.data.User;
 import main.java.data.UserGroup;
+import main.java.exception.InvalidParameterException;
+import main.java.service.AddressService;
 import main.java.service.UserGroupService;
 import main.java.service.UserService;
+import main.java.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,13 +36,20 @@ public class UserGroupController {
     @Autowired
     private UserGroupService userGroupService;
 
+    @Autowired
+    private ValidationService validationService;
+
+    @Autowired
+    private AddressService addressService;
+
     /**
      * This API will take a user (probably by UUID) and return information about the user
      * @return
      */
     @RequestMapping(method = POST, value = "/get-user-group")
-    public @ResponseBody UserGroup getUserGroupData(@RequestParam Map<String,String> allParams) {
+    public @ResponseBody UserGroup getUserGroupData(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
         String groupId = allParams.get(GROUP_ID_KEY);
+        validationService.validateUUID(groupId, GROUP_ID_KEY);
         UserGroup userGroup = userGroupService.getUserGroupByGroupId(UUID.fromString(groupId));
         return userGroup;
     }
@@ -60,22 +70,29 @@ public class UserGroupController {
      * @return
      */
     @RequestMapping(method = POST, value = "/add-user-to-group")
-    public @ResponseBody boolean getUserData(@RequestParam Map<String,String> allParams) {
+    public @ResponseBody boolean getUserData(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
         String accountNumber = allParams.get(ACCOUNT_NUMBER_KEY);
-        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumber));
         String groupId = allParams.get(GROUP_ID_KEY);
+
+        validationService.validateUUID(accountNumber, ACCOUNT_NUMBER_KEY);
+        validationService.validateUUID(groupId, GROUP_ID_KEY);
+
+        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumber));
         UserGroup userGroup = userGroupService.getUserGroupByGroupId(UUID.fromString(groupId));
         return userGroupService.addUserToUserGroup(userGroup, user);
     }
 
     @RequestMapping(method = POST, value = "/create-user-group")
-    public @ResponseBody UserGroup createNewUserGroup(@RequestParam Map<String,String> allParams) {
-        String groupId = allParams.get(GROUP_ID_KEY);
+    public @ResponseBody UserGroup createNewUserGroup(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+        String groupName = allParams.get(GROUP_NAME_KEY);
+        Address address = addressService.extractAddress(allParams);
+
+        validationService.isNotNullOrEmpty(groupName, GROUP_NAME_KEY);
+
         UserGroup usergroup = new UserGroup();
-        usergroup.setGroupId(UUID.fromString(groupId));
-        usergroup.setAddress(new Address());
+        usergroup.setAddress(address);
         usergroup.setCreationDate(new Date());
-        usergroup.setName(GROUP_NAME_KEY);
+        usergroup.setName(groupName);
         return userGroupService.createNewUserGroup(usergroup);
     }
 
