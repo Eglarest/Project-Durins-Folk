@@ -57,7 +57,10 @@ public class EventService {
         event.setLength(length);
         event.setParent(null);
         event.setStartDate(date);
-        ArrayList<User> users = new ArrayList<>(userGroup.getMembers());
+        ArrayList<User> users = new ArrayList<>();
+        if(userGroup.getMembers() != null) {
+            users.addAll(userGroup.getMembers());
+        }
         event.setAttendingUsers(users);
         ArrayList<Event> events = new ArrayList<>();
         events.add(event);

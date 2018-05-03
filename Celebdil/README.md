@@ -52,9 +52,9 @@ Celebdil/src/main/java
       - [ ] /add-user-to-group
         - allow a user to join a created group
   - [ ] Release backend API support for p0 (v0)
-  - [ ] Finish controller logic
-    - [ ] EventController
-    - [ ] HomepageController
+  - [X] Finish controller logic
+    - [X] EventController
+    - [X] HomepageController
     - [X] LoginController
     - [X] MessageController
     - [X] UserController
@@ -69,6 +69,9 @@ Celebdil/src/main/java
     - [ ] UserService
     - [ ] ValidationService
   - [ ] Finish database logic
+  - [ ] Finishing Touches
+    - [ ] Check Controller DateTime Timezone Logic
+    - [ ] Remove Redundant nullPointer checks
 
 ## DEPENDENCIES
 You will need the following packages (External Libraries):

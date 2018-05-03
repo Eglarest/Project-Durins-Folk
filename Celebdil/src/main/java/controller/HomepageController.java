@@ -26,10 +26,10 @@ public class HomepageController {
      */
     @RequestMapping(method = GET, value = "/home")
     public @ResponseBody Message greeting(@RequestParam(value="name", defaultValue="User") String name) {
-        Message initialGreeting = messageService.getMessagesToUser(UUID.randomUUID()).get(0);
+        Message initialGreeting = messageService.getMessagesFromUser(UUID.fromString("0-0-0-0-0")).get(0);
         initialGreeting.setId(UUID.randomUUID());
-        initialGreeting.setContent("Welcome to Project-Durins-Folk! Sit back and have an ale!");
-        initialGreeting.setFrom(UUID.randomUUID());
+        initialGreeting.setContent("Welcome to Project-Durins-Folk, " + name + "! Sit back and have an ale!");
+        initialGreeting.setTo(UUID.randomUUID());
         initialGreeting.setDate(new Date());
         return initialGreeting;
     }

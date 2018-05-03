@@ -4,6 +4,9 @@ import com.google.common.base.Strings;
 import main.java.exception.InvalidParameterException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.UUID;
 
 @Service
@@ -18,6 +21,19 @@ public class ValidationService {
         try {
             UUID.fromString(uuid);
         } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException(String.format("%s; %s", description, genericException));
+        }
+    }
+
+    public void validateISODateTime(String dateTime, String description) throws InvalidParameterException {
+        String genericException = "DateTime of invalid format. Proper format: ISO8601 with Date, Time, and Timezone " +
+                "'yyyy-mm-ddThh:mm:ss+|-hh:mm'";
+        if(dateTime == null) {
+            throw new InvalidParameterException(description + "; parameter cannot be null.");
+        }
+        try {
+            LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        } catch (DateTimeParseException e) {
             throw new InvalidParameterException(String.format("%s; %s", description, genericException));
         }
     }
