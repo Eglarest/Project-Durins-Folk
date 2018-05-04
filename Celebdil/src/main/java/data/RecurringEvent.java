@@ -9,7 +9,7 @@ import java.util.List;
 public class RecurringEvent {
 
     private List<Activity> activities;
-    private Date startdate;
+    private Date startDate;
     private Date length;
     private Date frequency;
     private Date endDate;

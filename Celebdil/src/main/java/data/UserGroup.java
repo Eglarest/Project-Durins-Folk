@@ -17,6 +17,7 @@ public class UserGroup {
     private Address address;
     private List<User> members;
     private Date creationDate;
+    //TODO: Add Description
 
     public void addMember(User user) {
         if(members == null) {

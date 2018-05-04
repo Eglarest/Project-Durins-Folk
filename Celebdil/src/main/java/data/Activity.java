@@ -7,5 +7,6 @@ public class Activity {
 
     private String name;
     private String type;
+    //TODO: Add UUID for Activities?
 
 }

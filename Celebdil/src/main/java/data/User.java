@@ -16,5 +16,6 @@ public class User {
     private UUID accountNumber;
     private Address address;
     private Date joinDate;
+    //TODO: Add Birthday
 
 }

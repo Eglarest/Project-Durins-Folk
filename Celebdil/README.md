@@ -69,9 +69,17 @@ Celebdil/src/main/java
     - [ ] UserService
     - [ ] ValidationService
   - [ ] Finish database logic
+    - [ ] ActivitiesDatabase
+    - [ ] ContactsDatabase
+    - [ ] EventsDatabase
+    - [ ] LoginDatabase (Temporary)
+    - [ ] MessagesDatabase
+    - [ ] UserGroupsDatabase
+    - [ ] UsersDatabase
   - [ ] Finishing Touches
     - [ ] Check Controller DateTime Timezone Logic
     - [ ] Remove Redundant nullPointer checks
+    - [ ] Finalize Exception Logic
 
 ## DEPENDENCIES
 You will need the following packages (External Libraries):
