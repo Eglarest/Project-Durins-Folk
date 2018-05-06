@@ -90,6 +90,53 @@ Spring-boot-autoconfigure : 2.0.1
 lombok                    : 1.16.20
 Gradle                    : past 2.12 (??)
 Guava                     : 24.1-jre
+PostgreSQL-JDBC           : 42.2.2.2
+
+## Database Creation:
+You will need to install the following database code:
+PostgreSQL - 10
+* https://www.postgresql.org/download/
+The JDBC from PostgreSQL - 4.2
+* https://jdbc.postgresql.org/download.html
+
+Next create the databases:
+
+This will create 2 databases for you "durinsfolktest" and "durinsfolk". Which will be useful in testing locally, but will need to be populated with data.
+The select statements are to make sure the tables are properly formatted.
+
+From the command line run:
+* `psql -U postgres`
+* `create database durinsfolktest;`
+* `\c durinsfolktest;`
+* `create table Users (account_id uuid, title text, first_name text, middle_name text, surname text, suffix text, address json, join_date timestamp);`
+* `create table Events (event_id uuid, name text, date timestamp, length interval, address json, parent uuid, attendees uuid[], activities uuid[]);`
+* `create table Activities (activity_id uuid, name text, type text);`
+* `create table Contacts (lower_account_id uuid, higher_account_id uuid, first_contact timestamp, last_contact timestamp, shared_events uuid[]);`
+* `create table Messages (message_id uuid, content text, date timestamp, to_user uuid, from_user uuid);`
+* `create table UserGroups (group_id uuid, name text, creation_date timestamp, address json, owners uuid[], members uuid[]);`
+* `select * from Users limit 1;`
+* `select * from Events limit 1;`
+* `select * from Activities limit 1;`
+* `select * from Contacts limit 1;`
+* `select * from Messages limit 1;`
+* `select * from UserGroups limit 1;`
+
+From the command line run:
+* `psql -U postgres`
+* `create database durinsfolk;`
+* `\c durinsfolk;`
+* `create table Users (account_id uuid, title text, first_name text, middle_name text, surname text, suffix text, address json, join_date timestamp);`
+* `create table Events (event_id uuid, name text, date timestamp, length interval, address json, parent uuid, attendees uuid[], activities uuid[]);`
+* `create table Activities (activity_id uuid, name text, type text);`
+* `create table Contacts (lower_account_id uuid, higher_account_id uuid, first_contact timestamp, last_contact timestamp, shared_events uuid[]);`
+* `create table Messages (message_id uuid, content text, date timestamp, to_user uuid, from_user uuid);`
+* `create table UserGroups (group_id uuid, name text, creation_date timestamp, address json, owners uuid[], members uuid[]);`
+* `select * from Users limit 1;`
+* `select * from Events limit 1;`
+* `select * from Activities limit 1;`
+* `select * from Contacts limit 1;`
+* `select * from Messages limit 1;`
+* `select * from UserGroups limit 1;`
 
 ## BUILD ON WINDOWS
 Add the gradle.bat file's directory to your $PATH environment variable

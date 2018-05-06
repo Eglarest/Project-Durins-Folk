@@ -40,4 +40,6 @@ dependencies {
     apt "org.projectlombok:lombok:1.16.20"
 
     compile 'com.google.guava:guava:24.1-jre'
+
+    compile 'org.postgresql:postgresql:42.2.2'
 }

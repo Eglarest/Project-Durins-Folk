@@ -12,8 +12,7 @@ public class UserGroup {
 
     private String name;
     private UUID groupId;
-    private User leader;
-    private List<User> successors;
+    private List<User> owners;
     private Address address;
     private List<User> members;
     private Date creationDate;
@@ -28,12 +27,12 @@ public class UserGroup {
         }
     }
 
-    public void addSuccessor(User user) {
-        if(successors == null) {
-            successors = new ArrayList<>();
+    public void addOwner(User user) {
+        if(owners == null) {
+            owners = new ArrayList<>();
         }
-        if(!successors.contains(user)) {
-            successors.add(user);
+        if(!owners.contains(user)) {
+            owners.add(user);
         }
     }
 
@@ -43,19 +42,9 @@ public class UserGroup {
         }
     }
 
-    public void removeSuccessor(User user) {
-        if(successors != null) {
-            successors.remove(user);
+    public void removeOwner(User user) {
+        if(owners != null) {
+            owners.remove(user);
         }
-    }
-
-    public User succeedLeader() {
-        leader = null;
-        if(successors != null && successors.size() > 0) {
-            int successor = (int)(Math.random()*successors.size());
-            leader = successors.get(successor);
-            successors.remove(successor);
-        }
-        return leader;
     }
 }

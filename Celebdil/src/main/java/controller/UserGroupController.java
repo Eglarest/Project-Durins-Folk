@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import main.java.data.Address;
 import main.java.data.User;
 import main.java.data.UserGroup;
+import main.java.database.PostgreSQLJDBC;
 import main.java.exception.InvalidParameterException;
 import main.java.service.AddressService;
 import main.java.service.UserGroupService;
@@ -41,6 +42,9 @@ public class UserGroupController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     /**
      * This API will take a user (probably by UUID) and return information about the user
@@ -95,5 +99,4 @@ public class UserGroupController {
         usergroup.setName(groupName);
         return userGroupService.createNewUserGroup(usergroup);
     }
-
 }
