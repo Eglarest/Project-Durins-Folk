@@ -76,10 +76,12 @@ Celebdil/src/main/java
     - [ ] MessagesDatabase
     - [ ] UserGroupsDatabase
     - [ ] UsersDatabase
+    - [ ] PostgreSQLJDBC
   - [ ] Finishing Touches
     - [ ] Check Controller DateTime Timezone Logic
     - [ ] Remove Redundant nullPointer checks
     - [ ] Finalize Exception Logic
+    - [ ] Add restrictions to database input at database level
 
 ## DEPENDENCIES
 You will need the following packages (External Libraries):
@@ -114,12 +116,14 @@ From the command line run:
 * `create table Contacts (lower_account_id uuid, higher_account_id uuid, first_contact timestamp, last_contact timestamp, shared_events uuid[]);`
 * `create table Messages (message_id uuid, content text, date timestamp, to_user uuid, from_user uuid);`
 * `create table UserGroups (group_id uuid, name text, creation_date timestamp, address json, owners uuid[], members uuid[]);`
+* `create table Login (account_id uuid, username text, password text);`
 * `select * from Users limit 1;`
 * `select * from Events limit 1;`
 * `select * from Activities limit 1;`
 * `select * from Contacts limit 1;`
 * `select * from Messages limit 1;`
 * `select * from UserGroups limit 1;`
+* `select * from Login limit 1`
 
 From the command line run:
 * `psql -U postgres`
@@ -131,12 +135,14 @@ From the command line run:
 * `create table Contacts (lower_account_id uuid, higher_account_id uuid, first_contact timestamp, last_contact timestamp, shared_events uuid[]);`
 * `create table Messages (message_id uuid, content text, date timestamp, to_user uuid, from_user uuid);`
 * `create table UserGroups (group_id uuid, name text, creation_date timestamp, address json, owners uuid[], members uuid[]);`
+* `create table Login (account_id uuid, username text, password text);`
 * `select * from Users limit 1;`
 * `select * from Events limit 1;`
 * `select * from Activities limit 1;`
 * `select * from Contacts limit 1;`
 * `select * from Messages limit 1;`
 * `select * from UserGroups limit 1;`
+* `select * from Login limit 1`
 
 ## BUILD ON WINDOWS
 Add the gradle.bat file's directory to your $PATH environment variable
@@ -157,12 +163,13 @@ potentially: ./gradlew for another operating system
 
 ### Stable
 
+* /login
+
 ### Mostly Stable
 
 ### Turbulent
 
 * /home
-* /login
 
 ### Highly Turbulent
 

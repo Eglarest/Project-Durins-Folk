@@ -1,7 +1,11 @@
 package main.java.service;
 
-import com.google.common.base.Strings;
+import lombok.NonNull;
 import main.java.data.LoginCredentials;
+import main.java.database.LoginDatabase;
+import main.java.exception.InternalFailureException;
+import main.java.exception.InvalidLoginException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,18 +14,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CredentialService {
 
+    @Autowired
+    LoginDatabase loginDatabase;
+
     /**
      * Determines if the credentials supplied to us are valid or not
      * @param loginCredentials
      * @return
      */
-    public boolean isValidLogin(LoginCredentials loginCredentials) {
-        // Basic validity check
-        if(loginCredentials == null || Strings.isNullOrEmpty(loginCredentials.getUsername()) ||
-                Strings.isNullOrEmpty(loginCredentials.getPassword())) {
-            return false;
+    public LoginCredentials loginUser(@NonNull LoginCredentials loginCredentials) throws InternalFailureException, InvalidLoginException {
+        LoginCredentials officialLoginCredentials = loginDatabase.readByUserName(loginCredentials.getUsername());
+        if(!loginCredentials.getPassword().equals(officialLoginCredentials.getPassword())) {
+            throw new InvalidLoginException("Incorrect username or password.");
         }
-        // Call to see if this pairing is valid
-        return ("Durin".equals(loginCredentials.getUsername()) && "Thorin".equals(loginCredentials.getPassword()));
+        return officialLoginCredentials;
     }
 }

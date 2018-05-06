@@ -1,6 +1,8 @@
 package main.java.controller;
 
 import main.java.data.LoginCredentials;
+import main.java.exception.InternalFailureException;
+import main.java.exception.InvalidLoginException;
 import main.java.exception.InvalidParameterException;
 import main.java.service.CredentialService;
 import main.java.service.ValidationService;
@@ -32,7 +34,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(method = POST, value = "/login")
-    public @ResponseBody boolean createNewUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+    public @ResponseBody String createNewUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException, InvalidLoginException {
         String username = allParams.get(USERNAME_KEY);
         String password = allParams.get(PASSWORD_KEY);
 
@@ -43,6 +45,7 @@ public class LoginController {
         loginCredentials.setUsername(username);
         loginCredentials.setPassword(password);
 
-        return credentialService.isValidLogin(loginCredentials);
+        loginCredentials = credentialService.loginUser(loginCredentials);
+        return loginCredentials.getAccountId().toString();
     }
 }
