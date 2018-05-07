@@ -33,7 +33,7 @@ Celebdil/src/main/java
     - Add data as necessary
   - [ ] Get "Business objectives" for p0 (minimal viable product)
     -  We need the following APIs working for p0 (working list):
-      - [ ] /login
+      - [X] /login
         - log in a created user
       - [ ] /get-user
         - get and return a user their correct data
@@ -51,6 +51,14 @@ Celebdil/src/main/java
         - allow a user to create an event
       - [ ] /add-user-to-group
         - allow a user to join a created group
+      - [X] /send-message
+        - allow a user to send a message
+      - [X] /get-messages-to
+        - allow a user to get the messages sent to them
+      - [X] /get-messages-from
+        - allow a user to get the messages they have sent
+      - [X] /get-messages-between
+        - allow a user to get the messages between 2 users
   - [ ] Release backend API support for p0 (v0)
   - [X] Finish controller logic
     - [X] EventController
@@ -64,7 +72,7 @@ Celebdil/src/main/java
     - [ ] AddressService
     - [ ] CredentialService
     - [ ] EventService
-    - [ ] MessageService
+    - [X] MessageService
     - [ ] UserGroupService
     - [ ] UserService
     - [ ] ValidationService
@@ -73,7 +81,7 @@ Celebdil/src/main/java
     - [ ] ContactsDatabase
     - [ ] EventsDatabase
     - [ ] LoginDatabase (Temporary)
-    - [ ] MessagesDatabase
+    - [X] MessagesDatabase
     - [ ] UserGroupsDatabase
     - [ ] UsersDatabase
     - [ ] PostgreSQLJDBC
@@ -81,7 +89,7 @@ Celebdil/src/main/java
     - [ ] Check Controller DateTime Timezone Logic
     - [ ] Remove Redundant nullPointer checks
     - [ ] Finalize Exception Logic
-    - [ ] Add restrictions to database input at database level
+    - [ ] Add size restrictions to database input at database level
 
 ## DEPENDENCIES
 You will need the following packages (External Libraries):
@@ -168,12 +176,12 @@ potentially: ./gradlew for another operating system
 
 ### Mostly Stable
 
-### Turbulent
-
 * /send-message
 * /get-messages-to
 * /get-messages-from
 * /get-messages-between
+
+### Turbulent
 
 ### Highly Turbulent
 

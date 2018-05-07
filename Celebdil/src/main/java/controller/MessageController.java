@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.data.Message;
+import main.java.exception.InternalFailureException;
 import main.java.exception.InvalidParameterException;
 import main.java.service.MessageService;
 import main.java.service.ValidationService;
@@ -31,7 +32,7 @@ public class MessageController {
     private ValidationService validationService;
 
     @RequestMapping(method = POST, value = "/send-message")
-    public @ResponseBody boolean sendMessage(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+    public @ResponseBody int sendMessage(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException {
         String to = allParams.get(MESSAGE_TO_KEY);
         String from = allParams.get(MESSAGE_FROM_KEY);
         String content = allParams.get(MESSAGE_CONTENT_KEY);
@@ -50,21 +51,21 @@ public class MessageController {
     }
 
     @RequestMapping(method = POST, value = "/get-messages-to")
-    public @ResponseBody List<Message> getMessagesToUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<Message> getMessagesToUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumber = allParams.get(ACCOUNT_NUMBER_KEY);
         validationService.validateUUID(accountNumber, ACCOUNT_NUMBER_KEY);
         return messageService.getMessagesToUser(UUID.fromString(accountNumber));
     }
 
     @RequestMapping(method = POST, value = "/get-messages-from")
-    public @ResponseBody List<Message> getMessagesFromUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<Message> getMessagesFromUser(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumber = allParams.get(ACCOUNT_NUMBER_KEY);
         validationService.validateUUID(accountNumber, ACCOUNT_NUMBER_KEY);
         return messageService.getMessagesFromUser(UUID.fromString(accountNumber));
     }
 
     @RequestMapping(method = POST, value = "/get-messages-between")
-    public @ResponseBody List<Message> getMessagesBetweenUsers(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<Message> getMessagesBetweenUsers(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumber1 = allParams.get(MESSAGE_TO_KEY);
         String accountNumber2 = allParams.get(MESSAGE_FROM_KEY);
 
