@@ -24,7 +24,7 @@ public class LoginDatabase {
     public static final String PASSWORD_COL = "password";
     private static Connection connection;
 
-    public LoginCredentials readByUserName(String username) throws InternalFailureException, InvalidLoginException {
+    public LoginCredentials readLoginByUsername(String username) throws InternalFailureException, InvalidLoginException {
         LoginCredentials loginCredentials;
         try {
             if(connection == null || connection.isClosed()) {

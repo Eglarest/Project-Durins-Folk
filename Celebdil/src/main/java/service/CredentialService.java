@@ -23,7 +23,7 @@ public class CredentialService {
      * @return
      */
     public LoginCredentials loginUser(@NonNull LoginCredentials loginCredentials) throws InternalFailureException, InvalidLoginException {
-        LoginCredentials officialLoginCredentials = loginDatabase.readByUserName(loginCredentials.getUsername());
+        LoginCredentials officialLoginCredentials = loginDatabase.readLoginByUsername(loginCredentials.getUsername());
         if(!loginCredentials.getPassword().equals(officialLoginCredentials.getPassword())) {
             throw new InvalidLoginException("Incorrect username or password.");
         }

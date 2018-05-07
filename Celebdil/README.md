@@ -129,13 +129,13 @@ From the command line run:
 * `psql -U postgres`
 * `create database durinsfolk;`
 * `\c durinsfolk;`
-* `create table Users (account_id uuid, title text, first_name text, middle_name text, surname text, suffix text, address json, join_date timestamp);`
-* `create table Events (event_id uuid, name text, date timestamp, length interval, address json, parent uuid, attendees uuid[], activities uuid[]);`
-* `create table Activities (activity_id uuid, name text, type text);`
-* `create table Contacts (lower_account_id uuid, higher_account_id uuid, first_contact timestamp, last_contact timestamp, shared_events uuid[]);`
-* `create table Messages (message_id uuid, content text, date timestamp, to_user uuid, from_user uuid);`
-* `create table UserGroups (group_id uuid, name text, creation_date timestamp, address json, owners uuid[], members uuid[]);`
-* `create table Login (account_id uuid, username text, password text);`
+* `create table Users (account_id uuid UNIQUE NOT NULL, title text, first_name text NOT NULL, middle_name text, surname text NOT NULL, suffix text, address json, join_date timestamp NOT NULL);`
+* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length interval NOT NULL, address json, parent uuid, attendees uuid[], activities uuid[]);`
+* `create table Activities (activity_id uuid UNIQUE NOT NULL, name text NOT NULL, type text NOT NULL);`
+* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
+* `create table Messages (message_id uuid UNIQUE NOT NULL, content text, date timestamp NOT NULL, to_user uuid NOT NULL, from_user uuid NOT NULL);`
+* `create table UserGroups (group_id uuid UNIQUE NOT NULL, name text NOT NULL, creation_date timestamp NOT NULL, address json, owners uuid[] NOT NULL, members uuid[]);`
+* `create table Login (account_id uuid UNIQUE NOT NULL, username text UNIQUE NOT NULL, password text NOT NULL);`
 * `select * from Users limit 1;`
 * `select * from Events limit 1;`
 * `select * from Activities limit 1;`
@@ -164,12 +164,16 @@ potentially: ./gradlew for another operating system
 ### Stable
 
 * /login
+* /home
 
 ### Mostly Stable
 
 ### Turbulent
 
-* /home
+* /send-message
+* /get-messages-to
+* /get-messages-from
+* /get-messages-between
 
 ### Highly Turbulent
 
@@ -184,10 +188,6 @@ potentially: ./gradlew for another operating system
 * /find-user-groups
 * /add-user-to-group
 * /create-user-group
-* /send-message
-* /get-messages-to
-* /get-messages-from
-* /get-messages-between
 
 ## Code Styles (unless you know better ones...)
 

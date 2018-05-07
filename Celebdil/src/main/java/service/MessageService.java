@@ -1,6 +1,9 @@
 package main.java.service;
 
 import main.java.data.Message;
+import main.java.database.MessagesDatabase;
+import main.java.exception.InternalFailureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,14 +13,16 @@ import java.util.UUID;
 @Service
 public class MessageService {
 
+    @Autowired
+    MessagesDatabase messagesDatabase;
+
     public boolean saveMessage(Message message) {
         message.setId(UUID.randomUUID());
         return true;
     }
 
-    public Message getMessage(UUID messageId) {
-        Message message = new Message();
-        message.setId(messageId);
+    public Message getMessage(UUID messageId) throws InternalFailureException {
+        Message message = messagesDatabase.readMessageById(messageId);
         return message;
     }
 
