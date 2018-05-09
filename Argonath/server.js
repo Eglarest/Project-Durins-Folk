@@ -7,6 +7,7 @@ const mount = require("koa-mount");
 const assert = require("assert");
 const path = require("path");
 const proxy = require("koa-proxy");
+const fs = require("fs")
 
 const app = new Koa();
 const login = new Koa();
@@ -21,57 +22,45 @@ var PATH_2 = path.join(__dirname, "..", "/Mirrormere/dist");
 var $HOST = "http://localhost:5002/";
 
 var USER = {};
+var AUTH = false
 
 /* ROUTES USING MOUNT */
-/*
-controller.all("/submit", async (ctx, next) => {
+
+app.use(bodyParser());
+
+login.use(serve(PATH_1));
+main.use(serve(PATH_2));
+
+controller.all("/auth", async (ctx, next) => {
   // TODO: call real API to check if user info is valid
   USER = {
-    user: "nick",
-    password: "pass",
+    user: "human",
+    password: "friend",
   };
-  if (USER.user) {
-    await app.use(mount("/", main));
 
+  const res = ctx.request.body
+  if (USER.user === res.username && USER.password === res.password) {
+    AUTH = true
+    await app.use(mount("/", main));
     await next();
     ctx.redirect("/");
   } else {
+    AUTH = false
     ctx.redirect("/login");
   }
 });
 
-main.use(master.routes());
-login.use(router.routes());
-
-login.use(serve(PATH_1));
-
-main.use(serve(PATH_2));
-// main.listen(5001, "127.0.0.1");
-
-// controller.all("/submit", async (ctx, next) => {
-//   // TODO: call real API to check if user info is valid
-//   USER = {
-//     user: "nick",
-//     password: "pass",
-//   };
-//   if (USER.user) {
-//     await app.use(proxy({ host: $HOST }));
-//
-//     await next();
-//     ctx.redirect("/");
-//   } else {
-//     ctx.redirect("/login");
-//   }
-// });
-
-controller.all("/", async (ctx, next) => {
-  if (USER.user === "nick") await app.use(mount("/", main));
-  else ctx.redirect("/login");
+controller.get("/", async (ctx, next) => {
+  if (AUTH) await app.use(mount("/", main));
+  else {
+    AUTH = false;
+    ctx.redirect("/login");
+  }
   await next();
 });
 
-controller.all("/login", async (ctx, next) => {
-  // await login.use(router.routes());
+controller.get("/login", async (ctx, next) => {
+  AUTH = false;
   await app.use(mount("/login", login));
   await next();
 });
@@ -80,14 +69,17 @@ app.use(controller.routes());
 
 app.listen(8008, "127.0.0.1");
 console.log("app is running at http://localhost:8008");
- */
+
 
 /* ------- -------- ------- */
 /* ROUTES USING PROXY */
 
-main.use(master.routes());
+// This may get weird for multiple users...
+
+/*
+// main.use(master.routes());
 // login.use(master.routes());
-app.use(master.routes());
+// app.use(master.routes());
 
 login.use(router.routes());
 
@@ -135,3 +127,4 @@ app.use(controller.routes());
 
 app.listen(8008, "127.0.0.1");
 console.log("app is running at http://localhost:8008");
+*/
