@@ -1,4 +1,5 @@
 # Project-Durins-Folk
+
 ```
 Project Durin's Folk
 |
@@ -16,7 +17,9 @@ Project Durin's Folk
 ```
 
 #### Prototype Link:
- > https://invis.io/QRHS8AZH3MF
+
+> https://invis.io/QRHS8AZH3MF
 
 #### Confused by naming choices?
-[![project elrond](./project_elrond.png)](https://youtu.be/_YmDT2BgI-0?t=6)
+
+[![project elrond](./Morannon/assets/project_elrond.png)](https://youtu.be/_YmDT2BgI-0?t=6)
