@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db": "",
-    "dev": "node server.js"
+    "init": "npm i && cd ../Mirrormere && npm i && npm run build",
+    "start:dev": "babel-watch --watch login server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +20,11 @@
     "koa-bodyparser": "^4.2.0",
     "koa-mount": "^3.0.0",
     "koa-proxy": "^0.9.0",
-    "koa-redirects": "^1.1.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-watch": "^2.0.7"
   }
 }

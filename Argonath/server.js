@@ -39,6 +39,7 @@ controller.all("/auth", async (ctx, next) => {
   };
 
   const res = ctx.request.body
+
   if (USER.user === res.username && USER.password === res.password) {
     AUTH = true
     await app.use(mount("/", main));
