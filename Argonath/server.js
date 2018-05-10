@@ -1,13 +1,15 @@
+'use strict'
+
 const Koa = require("koa");
 const Router = require("koa-router");
 const bodyParser = require("koa-bodyparser");
-const cors = require("@koa/cors");
 const serve = require("koa-static");
 const mount = require("koa-mount");
-const assert = require("assert");
 const path = require("path");
-const proxy = require("koa-proxy");
-const fs = require("fs")
+const fs = require("fs");
+const https = require('https');
+const http = require('http');
+// const enforceHttps = require('koa-sslify');
 
 const app = new Koa();
 const login = new Koa();
@@ -27,6 +29,7 @@ var AUTH = false
 /* ROUTES USING MOUNT */
 
 app.use(bodyParser());
+app.use(enforceHttps({ port: 8008 }));
 
 login.use(serve(PATH_1));
 main.use(serve(PATH_2));
@@ -68,8 +71,16 @@ controller.get("/login", async (ctx, next) => {
 
 app.use(controller.routes());
 
-app.listen(8008, "127.0.0.1");
-console.log("app is running at http://localhost:8008");
+const options = {
+  key: fs.readFileSync(path.join(__dirname, '/certs/auth.key')),
+  cert: fs.readFileSync(path.join(__dirname, '/certs/auth.crt')),
+  passphrase: 'friend',
+};
+
+// app.listen(8008, "127.0.0.1");
+http.createServer().listen(8001);
+https.createServer(options, app.callback()).listen(8008);
+console.log("app is running at http://localhost:8008/2");
 
 
 /* ------- -------- ------- */
