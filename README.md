@@ -75,7 +75,6 @@ Note:
   * `git branch -d newBranchName` **This will delete your old working branch**
 
 
-
 ### Git Workflow: (With Pull Request)
 1. Begin on up to date local/master branch
   * `git checkout master`
@@ -100,8 +99,11 @@ Note:
   * Go to your branch on [github](https://github.com/Eglarest/Project-Durins-Folk/branches)
   * Click the create pull request button
   * Describe changes
-7. Decide if we are `squashing and merging` or s`quashing and rebasing`
-  * click the button for whichever is decided
+7. Decide if we are `squashing and merging` or `squashing and rebasing`
+  * Wait for tests to pass
+    - Testing out a couple different ones to see how they work
+  * Recieve review (unless you're an admin)
+  * Click the button for whichever is decided
 8. Delete the old branch
   * `git branch -d newBranchName` **This will delete your old working branch**
   * Or use the button on github
