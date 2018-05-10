@@ -1,0 +1,18 @@
+{
+  "local": {
+    "project": "dimholt",
+    "username": "writeruser",
+    "password": "password",
+    "database": "testing",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "development": {
+    "project": "dimholt",
+    "username": "writeruser",
+    "password": "password",
+    "database": "testing",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

@@ -57,8 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
-# User auth db
-Dwimorberg/Dunharrow/*
 # Application db
 Dwimorberg/Dimholt/*
 
