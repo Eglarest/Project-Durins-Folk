@@ -16,9 +16,9 @@ Project Durin's Folk
     |-- ..
 ```
 
-#### Prototype Link:
-
-> https://invis.io/QRHS8AZH3MF
+#### Links:
+* [Invision Prototype](https://invis.io/QRHS8AZH3MF)
+* [CodeFactor](https://www.codefactor.io/repository/github/eglarest/project-durins-folk)
 
 ## Code Styles (prefered best practices)
 
@@ -74,6 +74,39 @@ Note:
 16. You can chose to clean up your local git if you wish
   * `git branch -d newBranchName` **This will delete your old working branch**
 
+
+
+### Git Workflow: (With Pull Request)
+1. Begin on up to date local/master branch
+  * `git checkout master`
+  * `git pull`
+2. Create your own branch to make and test changes
+  * `git checkout -b yourName/newBranchName`
+3. Make changes and test changes
+4. Commit and push changes to your branch
+  * `git add <changes>`
+    - `git add projectSubDirectoryName/src/*` often works
+    - `git add -A` adds everything
+  * `git commit -a -m "Description of work"`
+  * `git push`
+5. While working on the branch keep up to date with master using **merge**
+  * `git checkout master`
+  * `git pull`
+  * `git checkout yourName/newBranchName`
+  * `git merge master`
+    - fix any merge conflicts
+  * `git push`
+6. Create pull request
+  * Go to your branch on [github](https://github.com/Eglarest/Project-Durins-Folk/branches)
+  * Click the create pull request button
+  * Describe changes
+7. Decide if we are `squashing and merging` or s`quashing and rebasing`
+  * click the button for whichever is decided
+8. Delete the old branch
+  * `git branch -d newBranchName` **This will delete your old working branch**
+  * Or use the button on github
+9. Go back to master. rinse and repeat.
+
 ### If you messed up
 
 git reset HEAD^ - will undo 1 commit
@@ -86,3 +119,10 @@ If you made changes directly to your master branch:
 #### Confused by naming choices?
 
 [![project elrond](./Morannon/assets/project_elrond.png)](https://youtu.be/_YmDT2BgI-0?t=6)
+
+
+### Names
+
+- Eglarest
+- Nargothrond
+-
