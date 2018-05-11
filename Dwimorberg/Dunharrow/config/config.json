@@ -1,6 +1,6 @@
 {
   "local": {
-    "project": "dimholt",
+    "project": "dwimorberg",
     "username": "writeruser",
     "password": "password",
     "database": "testing",
@@ -8,7 +8,7 @@
     "dialect": "postgres"
   },
   "development": {
-    "project": "dimholt",
+    "project": "dwimorberg",
     "username": "writeruser",
     "password": "password",
     "database": "testing",

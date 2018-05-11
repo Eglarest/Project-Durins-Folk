@@ -1,6 +1,6 @@
 "use strict";
 
-const PantheonModel = require("./pantheon-model");
+const BaseModel = require("./base-model");
 const { Sequelize } = require("sequelize");
 
 const attributes = {
@@ -26,7 +26,7 @@ const attributes = {
   },
 };
 
-module.exports = class contact extends PantheonModel {
+module.exports = class contact extends BaseModel {
   static init(sequelize) {
     super.init(attributes, options(sequelize));
     return this;

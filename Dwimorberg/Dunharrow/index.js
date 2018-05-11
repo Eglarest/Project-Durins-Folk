@@ -13,7 +13,7 @@ function init(dbConfig, options) {
   if (dbConfig) config = dbConfig;
   else console.error("no db creds passed! using default local env creds for DB");
 
-  const projectName = config.project || "pantheon";
+  const projectName = config.project || "dwimorberg";
 
   // TODO: move the kms decryption for keys into here?
   const sequelize = new Sequelize(
@@ -39,7 +39,7 @@ function init(dbConfig, options) {
 
   // determine which set of models to load
   const modelSets = {
-    dimholt: "models",
+    dwimorberg: "models",
   };
   const modelFolder = modelSets[projectName] || "models";
   const modelPath = `${__dirname}/${modelFolder}/`;
@@ -50,7 +50,7 @@ function init(dbConfig, options) {
   fs
     .readdirSync(modelPath)
     .filter(
-      file => file.indexOf(".") !== 0 && file.slice(-3) === ".js" && file !== "pantheon-model.js"
+      file => file.indexOf(".") !== 0 && file.slice(-3) === ".js" && file !== "base-model.js"
     )
     .forEach(file => {
       const model = require(path.join(modelPath, file));

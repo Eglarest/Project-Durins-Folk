@@ -1,5 +1,5 @@
 {
-  "name": "server-files",
+  "name": "argonath",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -10,7 +10,8 @@
     "start": "node server.js",
     "nginx:start": "export NGINX_PATH=$PWD'/nginx/nginx.conf' && nginx -c $NGINX_PATH",
     "nginx:stop": "nginx -s stop",
-    "start:all": "npm run nginx:start && npm run start && npm run nginx:stop"
+    "start:all": "npm run nginx:start && npm run start && npm run nginx:stop",
+    "db:setup": "cd ../Dwimorberg/Dunharrow/scripts && sh setup.sh"
   },
   "keywords": [],
   "author": "",

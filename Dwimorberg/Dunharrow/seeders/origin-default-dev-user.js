@@ -9,7 +9,7 @@ module.exports = {
     // queryInterface.sequelize.config will inherit environment config from --env flag of sequelize-cli
     return init(queryInterface.sequelize.config)
       .then(db =>
-        fixtures.loadFile(path.resolve(`${__dirname}/seed-data/dev-users.yml`), db.models)
+        fixtures.loadFile(path.resolve(`${__dirname}/fixtures/dev-users.json`), db.models)
       )
       .catch(err => console.error(err));
   },

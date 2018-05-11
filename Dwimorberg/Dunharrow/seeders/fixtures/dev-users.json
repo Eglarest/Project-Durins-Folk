@@ -1,0 +1,30 @@
+[
+      {
+        "model": "user",
+        "data" : {
+          "name": "test",
+          "id": 1
+        }
+      },
+      {
+        "model": "user",
+        "data" : {
+          "name": "Fake User",
+          "id": 2
+        }
+      },
+      {
+        "model": "user",
+        "data" : {
+          "name": "Glorfindel",
+          "id": 3
+        }
+      },
+      {
+        "model": "user",
+        "data" : {
+          "name": "Human",
+          "id": 4
+        }
+      }
+]
