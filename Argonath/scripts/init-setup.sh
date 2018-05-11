@@ -3,8 +3,8 @@
 os=${OSTYPE//[0-9.]/}
 
 if [[ "$os" == "darwin" ]]; then
-  # Script to start up an OSX dev system.
-  echo 'Setting up dev system for OSX';
+  # Script to start up an OSX postgreSQL database.
+  echo 'Setting up database for OSX';
   if [[ $(brew --version) ]]; then
     echo "Found" $(brew --version);
     brew update;
@@ -14,35 +14,31 @@ if [[ "$os" == "darwin" ]]; then
 
       dbPath=$(PWD)/Dwimorberg/Dimholt;
 
-      echo "\n --------------------  //  -------------------- \nStopping and Cleaning out database at" $dbPath "\n --------------------  //  -------------------- \n"
-      pg_ctl -D $dbPath -l logfile stop;
+      echo "\n--------------------  //  --------------------\nStopping and Cleaning out database at" $dbPath"\n--------------------\n";
+      pg_ctl -D $dbPath stop;
       rm -r $dbPath/*;
 
-      echo "\n --------------------  //  -------------------- \nCreating DB\n --------------------  //  -------------------- \n"
+      echo "\n--------------------\nCreating DB\n--------------------\n";
       initdb $dbPath -E utf8;
 
-      echo "\n --------------------  //  -------------------- \nStarting DB\n --------------------  //  -------------------- \n"
-      pg_ctl -D $dbPath -l logfile start;
+      echo "\n--------------------\nStarting DB\n--------------------  //  --------------------\n";
+      pg_ctl -D $dbPath -l Dwimorberg/Dimholt/logfile start;
 
-      cd Argonath
+      cd Argonath;
       npm run db:setup;
-      cd ..
-
-      echo "YAY"
-
-      # pg_ctl -D $dbPath -l logfile stop;
+      cd ..;
     else
       brew install postgresql;
     fi
   else
-    echo "\n --------------------  //  -------------------- \nDid not find Homebrew on your system\nPlease install homebrew\n --------------------  //  -------------------- \n";
+    echo "\n--------------------  //  --------------------\nDid not find Homebrew on your system\nPlease install homebrew\n--------------------  //  --------------------\n";
   fi
 elif [[ "$os" == "msys" ]]; then
-  # Script to start up a Windows dev system.
+  # Script to start up a Windows postgreSQL database.
   echo 'This is windows';
   # add the windows setup script here.
 elif [[ "$os" == "linux" ]]; then
-  # Script to start up a Linux dev system.
+  # Script to start up a Linux postgreSQL database.
   echo "This is linux";
   # add the linux setup script here.
 else

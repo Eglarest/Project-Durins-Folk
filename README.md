@@ -16,6 +16,14 @@ Project Durin's Folk
     |-- ..
 ```
 
+### Starting up the project
+For **Developemnt** run
+* To start: `sh Argonath/scripts/init-setup.sh`
+* To stop: `sh Argonath/scripts/stop-database.sh`
+
+For **Production** run
+- [ ] write prod start script
+
 #### Links:
 * [Invision Prototype](https://invis.io/QRHS8AZH3MF)
 * [CodeFactor](https://www.codefactor.io/repository/github/eglarest/project-durins-folk)
