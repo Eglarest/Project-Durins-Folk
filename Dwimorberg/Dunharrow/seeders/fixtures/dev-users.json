@@ -3,28 +3,44 @@
         "model": "user",
         "data" : {
           "name": "test",
-          "id": 1
+          "userId": 1,
+          "meta" : {
+            "username": "player1",
+            "password": "ready"
+          }
         }
       },
       {
         "model": "user",
         "data" : {
           "name": "Fake User",
-          "id": 2
+          "userId": 2,
+          "meta" : {
+            "username": "fake3",
+            "password": "password"
+          }
         }
       },
       {
         "model": "user",
         "data" : {
           "name": "Glorfindel",
-          "id": 3
+          "userId": 3,
+          "meta" : {
+            "username": "glorfindel",
+            "password": "elflord"
+          }
         }
       },
       {
         "model": "user",
         "data" : {
           "name": "Human",
-          "id": 4
+          "userId": 4,
+          "meta" : {
+            "username": "human",
+            "password": "friend"
+          }
         }
       }
 ]

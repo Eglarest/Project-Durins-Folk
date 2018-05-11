@@ -4,61 +4,38 @@ const BaseModel = require("./base-model");
 const { Sequelize } = require("sequelize");
 
 const attributes = {
+  name: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
   userId: {
     type: Sequelize.INTEGER,
-  },
-  type: {
-    type: Sequelize.TEXT,
     allowNull: false,
+    unique: true,
   },
-  default: {
-    type: Sequelize.BOOLEAN,
+  meta: {
+    type: Sequelize.JSONB,
     allowNull: false,
-    defaultValue: false,
-  },
-  label: {
-    type: Sequelize.TEXT,
-    allowNull: false,
-  },
-  value: {
-    type: Sequelize.TEXT,
-    allowNull: false,
+    defaultValue: {},
   },
 };
 
-module.exports = class contact extends BaseModel {
+module.exports = class user extends BaseModel {
   static init(sequelize) {
     super.init(attributes, options(sequelize));
     return this;
-  }
-
-  static associate(models) {
-    models[this.name].belongsTo(models.user);
   }
 };
 
 function options(sequelize) {
   return {
     sequelize: sequelize,
+    modelName: "user",
     indexes: [
-      { fields: ["userId"] },
-      { fields: ["type"] },
-      { fields: ["label"] },
+      { fields: ["name"] },
       { fields: ["createdAt"] },
       { fields: ["updatedAt"] },
       { fields: ["deletedAt"] },
-      {
-        fields: ["userId", "type"],
-        name: "only_one_default_per_type",
-        where: { default: true, deletedAt: { $eq: null } },
-        unique: true,
-      },
-      {
-        fields: ["userId", "label", "type"],
-        name: "userid_label_type_index",
-        where: { deletedAt: { $eq: null } },
-        unique: true,
-      },
     ],
   };
 }

@@ -121,10 +121,3 @@ If you made changes directly to your master branch:
 #### Confused by naming choices?
 
 [![project elrond](./Morannon/assets/project_elrond.png)](https://youtu.be/_YmDT2BgI-0?t=6)
-
-
-### Names
-
-- Eglarest
-- Nargothrond
--

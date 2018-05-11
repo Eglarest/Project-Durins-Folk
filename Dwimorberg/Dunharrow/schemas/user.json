@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "id": {
+    "userId": {
       "type": "integer"
     },
     "name": {
@@ -23,5 +23,5 @@
       "format": "date-time"
     }
   },
-  "required": ["id", "name", "meta", "created_at", "updated_at"]
+  "required": ["userId", "name", "meta", "created_at", "updated_at"]
 }
