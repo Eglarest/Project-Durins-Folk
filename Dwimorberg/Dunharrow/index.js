@@ -15,29 +15,9 @@ function init(dbConfig, options) {
 
   const projectName = config.project || "dwimorberg";
 
-  // TODO: move the kms decryption for keys into here?
-  const sequelize = new Sequelize(
-    config.database,
-    config.username || config.user,
-    config.password,
-    Object.assign({}, config, {
-      host: config.host,
-      port: config.port || 5432,
-      dialect: "postgres",
-      logging: !!process.env.DB_DEBUG,
-      define: {
-        paranoid: true,
-        timestamps: true,
-      },
-      pool: options.pool || {
-        max: 1,
-        min: 0,
-        idle: 5000,
-      },
-    })
-  );
+  const sequelize = configureSequelize(config, options);
 
-  // determine which set of models to load
+
   const modelSets = {
     dwimorberg: "models",
   };
@@ -68,6 +48,30 @@ function init(dbConfig, options) {
 
   // db contains all models by file name, e.g. "db.user"
   return Promise.resolve(db);
-}
+};
+
+function configureSequelize(config, options) {
+  const sequelize = new Sequelize(
+    config.database,
+    config.username || config.user,
+    config.password,
+    Object.assign({}, config, {
+      host: config.host,
+      port: config.port || 5432,
+      dialect: "postgres",
+      logging: !!process.env.DB_DEBUG,
+      define: {
+        paranoid: true,
+        timestamps: true,
+      },
+      pool: options.pool || {
+        max: 1,
+        min: 0,
+        idle: 5000,
+      },
+    })
+  );
+  return sequelize;
+};
 
 module.exports = init;
