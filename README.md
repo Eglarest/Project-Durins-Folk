@@ -16,6 +16,14 @@ Project Durin's Folk
     |-- ..
 ```
 
+### Starting up the project
+For **Developemnt** run
+* To start: `sh Argonath/scripts/init-setup.sh`
+* To stop: `sh Argonath/scripts/stop-database.sh`
+
+For **Production** run
+- [ ] write prod start script
+
 #### Links:
 * [Invision Prototype](https://invis.io/QRHS8AZH3MF)
 * [CodeFactor](https://www.codefactor.io/repository/github/eglarest/project-durins-folk)
@@ -121,10 +129,3 @@ If you made changes directly to your master branch:
 #### Confused by naming choices?
 
 [![project elrond](./Morannon/assets/project_elrond.png)](https://youtu.be/_YmDT2BgI-0?t=6)
-
-
-### Names
-
-- Eglarest
-- Nargothrond
--

@@ -1,0 +1,18 @@
+{
+  "local": {
+    "project": "durinsFolk",
+    "username": "writeruser",
+    "password": "password",
+    "database": "dwimorberg",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "development": {
+    "project": "durinsFolk",
+    "username": "writeruser",
+    "password": "password",
+    "database": "dwimorberg",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

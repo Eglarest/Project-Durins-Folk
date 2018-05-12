@@ -1,0 +1,46 @@
+[
+      {
+        "model": "user",
+        "data" : {
+          "name": "test",
+          "userId": 1,
+          "meta" : {
+            "username": "player1",
+            "password": "ready"
+          }
+        }
+      },
+      {
+        "model": "user",
+        "data" : {
+          "name": "Fake User",
+          "userId": 2,
+          "meta" : {
+            "username": "fake3",
+            "password": "password"
+          }
+        }
+      },
+      {
+        "model": "user",
+        "data" : {
+          "name": "Glorfindel",
+          "userId": 3,
+          "meta" : {
+            "username": "glorfindel",
+            "password": "elflord"
+          }
+        }
+      },
+      {
+        "model": "user",
+        "data" : {
+          "name": "Human",
+          "userId": 4,
+          "meta" : {
+            "username": "human",
+            "password": "friend"
+          }
+        }
+      }
+]
