@@ -68,7 +68,7 @@ Celebdil/src/main/java
     - [X] UserController
     - [X] UserGroupController
   - [ ] Finish service logic
-    - [ ] ActivityService
+    - [X] ActivityService
     - [ ] AddressService
     - [ ] CredentialService
     - [X] EventService
@@ -77,7 +77,7 @@ Celebdil/src/main/java
     - [ ] UserService
     - [ ] ValidationService
   - [ ] Finish database logic
-    - [ ] ActivitiesDatabase
+    - [X] ActivitiesDatabase
     - [ ] ContactsDatabase
     - [X] EventsDatabase
     - [ ] LoginDatabase (Temporary)
@@ -172,12 +172,13 @@ potentially: ./gradlew for another operating system
 
 ### Turbulent
 
-### Highly Turbulent
-
 * /user-events
 * /group-events
 * /join-event
 * /create-event
+
+### Highly Turbulent
+
 * /create-user
 * /get-user
 * /find-users

@@ -117,7 +117,9 @@ public class EventController {
 
         Activity activity = activityService.getActivityByName(activityName);
         List<UUID> activityIds = new ArrayList<>();
-        activityIds.add(activity.getActivityId());
+        if(activity != null) {
+            activityIds.add(activity.getActivityId());
+        }
         List<UUID> attendingUsers = new ArrayList<>();
         attendingUsers.add(UUID.fromString(accountNumberString));
 

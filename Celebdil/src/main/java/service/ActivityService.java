@@ -1,45 +1,40 @@
 package main.java.service;
 
 import main.java.data.Activity;
+import main.java.database.ActivitiesDatabase;
+import main.java.exception.InternalFailureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ActivityService {
 
-    public Activity getActivityByName(String name) {
-        Activity activity = new Activity();
-        activity.setName(name);
-        activity.setType("dummy");
-        return activity;
+    @Autowired
+    ActivitiesDatabase activitiesDatabase;
+
+    public Activity getActivityByName(String name) throws InternalFailureException {
+        List<Activity> possibleActivities = activitiesDatabase.readActivitiesByName(name);
+        if(possibleActivities.size() != 0) {
+            return possibleActivities.get(0);
+        }
+        return null;
     }
 
-    public List<Activity> getActivitiesByType(String type) {
-        Activity activity = new Activity();
-        activity.setType(type);
-        activity.setName("dummy");
-        List<Activity> activities = new ArrayList<>();
-        activities.add(activity);
-        return activities;
+    public List<Activity> findActivitiesByType(String type) throws InternalFailureException {
+        return activitiesDatabase.readActivitiesLikeType(type);
     }
 
-    public List<Activity> findActivitiesByType(String string) {
-        Activity activity = new Activity();
-        activity.setType(string + " ish");
-        activity.setName("dummy");
-        List<Activity> activities = new ArrayList<>();
-        activities.add(activity);
-        return activities;
+    public List<Activity> findActivitiesByName(String name) throws InternalFailureException {
+        return activitiesDatabase.readActivitiesLikeType(name);
     }
 
-    public List<Activity> findActivitiesByName(String string) {
-        Activity activity = new Activity();
-        activity.setName(string + " ish");
-        activity.setType("dummy");
-        List<Activity> activities = new ArrayList<>();
-        activities.add(activity);
-        return activities;
+    public List<Activity> findActivitiesByString(String string) throws InternalFailureException {
+        return activitiesDatabase.readActivitiesLikeString(string);
+    }
+
+    public int createActivity(Activity activity) throws InternalFailureException {
+        return activitiesDatabase.writeActivity(activity);
     }
 }
