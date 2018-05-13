@@ -54,6 +54,25 @@ public class EventsDatabaseImpl implements EventsDatabase {
         return databaseEvent;
     }
 
+    public List<DatabaseEvent> readEventsByUserAndDate(UUID userId, Date date) throws InternalFailureException {
+        List<DatabaseEvent> databaseEventList = new ArrayList<>();
+        try {
+            if(connection == null || connection.isClosed()) {
+                connection = postgreSQLJDBC.getConnection();
+            }
+            ResultSet resultSet = connection.prepareCall(String.format(
+                    "SELECT * FROM %s WHERE %s @> '{\"%s\"}' AND date_trunc('day',%s) = date_trunc" +
+                            "('day',TIMESTAMP WITH TIME ZONE 'epoch' + %s * INTERVAL '1 second');",
+                    TABLE_NAME, ATTENDEES_COL, userId, DATE_COL, date.getTime())).executeQuery();
+            while(resultSet.next()) {
+                databaseEventList.add(getEvent(resultSet));
+            }
+        } catch(SQLException | JSONException e) {
+            throw new InternalFailureException(e.getMessage());
+        }
+        return databaseEventList;
+    }
+
     public int writeEvent(DatabaseEvent databaseEvent) throws InternalFailureException {
         int writes;
         try {
@@ -134,7 +153,9 @@ public class EventsDatabaseImpl implements EventsDatabase {
         databaseEvent.setStartDate(new Date(resultSet.getDate(DATE_COL).getTime()));
         databaseEvent.setLength(new Date(resultSet.getInt(LENGTH_COL)));
         databaseEvent.setAddress(getAddress(resultSet.getString(ADDRESS_COL)));
-        databaseEvent.setParent(UUID.fromString(resultSet.getString(PARENT_COL)));
+        String parentString = resultSet.getString(PARENT_COL);
+        UUID parent = parentString == null ? null : UUID.fromString(parentString);
+        databaseEvent.setParent(parent);
         List<String> attendees = arrayToStringList(resultSet.getArray(ATTENDEES_COL));
         databaseEvent.setAttendingUsers(stringListToUUIDList(attendees));
         arrayToStringList(resultSet.getArray(ACTIVITIES_COL));

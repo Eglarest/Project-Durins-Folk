@@ -3,6 +3,7 @@ package main.java.database;
 import main.java.data.DatabaseEvent;
 import main.java.exception.InternalFailureException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,4 +18,6 @@ public interface EventsDatabase {
     int updateUsersByEventId(UUID eventId, List<UUID> allGroupUsers) throws InternalFailureException;
 
     boolean isKeyAvailable(UUID uuid) throws InternalFailureException;
+
+    List<DatabaseEvent> readEventsByUserAndDate(UUID userId, Date date) throws InternalFailureException;
 }

@@ -34,21 +34,14 @@ public class UserGroupService {
         return userGroups;
     }
 
-    public boolean addUserToUserGroup(UserGroup userGroup, User user) {
-        userGroup.addMember(user);
+    public boolean addUserToUserGroup(UserGroup userGroup, UUID userId) {
+        userGroup.addMember(userId);
         return true;
     }
 
-    public List<User> addGroupOwner(UserGroup userGroup, User user) {
-        userGroup.addOwner(user);
+    public List<UUID> addGroupOwner(UserGroup userGroup, UUID userId) {
+        userGroup.addOwner(userId);
         return userGroup.getOwners();
-    }
-
-    public void addUserToSuccessors(UserGroup userGroup, User user) {
-        if(userGroup.getMembers() == null || !userGroup.getMembers().contains(user)) {
-            userGroup.addMember(user);
-        }
-        userGroup.addOwner(user);
     }
 
     public boolean removeUserFromGroup(UserGroup userGroup, User user) {

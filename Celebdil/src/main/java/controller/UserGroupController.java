@@ -2,7 +2,6 @@ package main.java.controller;
 
 import com.google.common.base.Strings;
 import main.java.data.Address;
-import main.java.data.User;
 import main.java.data.UserGroup;
 import main.java.database.PostgreSQLJDBC;
 import main.java.exception.InvalidParameterException;
@@ -81,9 +80,8 @@ public class UserGroupController {
         validationService.validateUUID(accountNumber, ACCOUNT_NUMBER_KEY);
         validationService.validateUUID(groupId, GROUP_ID_KEY);
 
-        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumber));
         UserGroup userGroup = userGroupService.getUserGroupByGroupId(UUID.fromString(groupId));
-        return userGroupService.addUserToUserGroup(userGroup, user);
+        return userGroupService.addUserToUserGroup(userGroup, UUID.fromString(accountNumber));
     }
 
     @RequestMapping(method = POST, value = "/create-user-group")

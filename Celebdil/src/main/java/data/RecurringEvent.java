@@ -10,12 +10,12 @@ import java.util.UUID;
 public class RecurringEvent {
 
     private UUID recurringId;
-    private List<Activity> activities;
+    private List<UUID> activityIds;
     private Date startDate;
     private Date length;
     private Date frequency;
     private Date endDate;
-    private List<Event> children;
+    private List<UUID> children;
     private Address address;
 
 }

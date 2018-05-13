@@ -71,7 +71,7 @@ Celebdil/src/main/java
     - [ ] ActivityService
     - [ ] AddressService
     - [ ] CredentialService
-    - [ ] EventService
+    - [X] EventService
     - [X] MessageService
     - [ ] UserGroupService
     - [ ] UserService
@@ -79,12 +79,12 @@ Celebdil/src/main/java
   - [ ] Finish database logic
     - [ ] ActivitiesDatabase
     - [ ] ContactsDatabase
-    - [ ] EventsDatabase
+    - [X] EventsDatabase
     - [ ] LoginDatabase (Temporary)
     - [X] MessagesDatabase
     - [ ] UserGroupsDatabase
     - [ ] UsersDatabase
-    - [ ] PostgreSQLJDBC
+    - [X] PostgreSQLJDBC
   - [ ] Finishing Touches
     - [ ] Check Controller DateTime Timezone Logic
     - [ ] Remove Redundant nullPointer checks

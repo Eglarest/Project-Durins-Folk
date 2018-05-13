@@ -12,27 +12,27 @@ public class UserGroup {
 
     private String name;
     private UUID groupId;
-    private List<User> owners;
+    private List<UUID> owners;
     private Address address;
-    private List<User> members;
+    private List<UUID> members;
     private Date creationDate;
     //TODO: Add Description
 
-    public void addMember(User user) {
+    public void addMember(UUID userId) {
         if(members == null) {
             members = new ArrayList<>();
         }
-        if(!members.contains(user)) {
-            members.add(user);
+        if(!members.contains(userId)) {
+            members.add(userId);
         }
     }
 
-    public void addOwner(User user) {
+    public void addOwner(UUID userId) {
         if(owners == null) {
             owners = new ArrayList<>();
         }
-        if(!owners.contains(user)) {
-            owners.add(user);
+        if(!owners.contains(userId)) {
+            owners.add(userId);
         }
     }
 

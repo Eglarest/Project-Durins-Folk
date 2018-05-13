@@ -65,7 +65,7 @@ public class EventController {
      * @return
      */
     @RequestMapping(method = POST, value = "/user-events")
-    public @ResponseBody List<DatabaseEvent> getUserEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<DatabaseEvent> getUserEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumberString = allParams.get(ACCOUNT_NUMBER_KEY);
         String dateTime = allParams.get(ISO8601_DATE_TIME_TIMEZONE_KEY);
 

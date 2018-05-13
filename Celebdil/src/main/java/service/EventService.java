@@ -42,25 +42,12 @@ public class EventService {
                             "database may be getting full or retries may need to be increased.");
     }
 
-    public List<DatabaseEvent> getEventsByUserForDate(User user, Date date) {
-        DatabaseEvent databaseEvent = new DatabaseEvent();
-        databaseEvent.setAddress(user.getAddress());
-        databaseEvent.setActivities(new ArrayList<>());
-        Date length = new Date();
-        length.setTime(60000);
-        databaseEvent.setLength(length);
-        databaseEvent.setParent(null);
-        databaseEvent.setStartDate(date);
-        ArrayList<UUID> userIds = new ArrayList<>();
-        userIds.add(user.getAccountNumber());
-        databaseEvent.setAttendingUsers(userIds);
-        ArrayList<DatabaseEvent> events = new ArrayList<>();
-        events.add(databaseEvent);
-        events.add(databaseEvent);
-        events.add(databaseEvent);
-        return events;
+    public List<DatabaseEvent> getEventsByUserForDate(User user, Date date) throws InternalFailureException {
+        return eventsDatabase.readEventsByUserAndDate(user.getAccountNumber(), date);
     }
 
+    //TODO: Decide a representation for this in the Database
+    //TODO: Remove this and move it into the groups service, user groups will have events they support, but events won't have user groups
     public List<DatabaseEvent> getEventsByUserGroupForDate(UserGroup userGroup, Date date) {
         DatabaseEvent databaseEvent = new DatabaseEvent();
         databaseEvent.setAddress(userGroup.getAddress());
@@ -70,16 +57,12 @@ public class EventService {
         databaseEvent.setLength(length);
         databaseEvent.setParent(null);
         databaseEvent.setStartDate(date);
-        ArrayList<UUID> userIds = new ArrayList<>();
-        if(userGroup.getMembers() != null) {
-            userGroup.getMembers().forEach(member -> userIds.add(member.getAccountNumber()));
-        }
-        databaseEvent.setAttendingUsers(userIds);
-        ArrayList<DatabaseEvent> events = new ArrayList<>();
-        events.add(databaseEvent);
-        events.add(databaseEvent);
-        events.add(databaseEvent);
-        return events;
+        databaseEvent.setAttendingUsers(userGroup.getMembers());
+        ArrayList<DatabaseEvent> databaseEvents = new ArrayList<>();
+        databaseEvents.add(databaseEvent);
+        databaseEvents.add(databaseEvent);
+        databaseEvents.add(databaseEvent);
+        return databaseEvents;
     }
 
     public boolean addUserToEvent(UUID eventId, UUID accountNumber) throws InternalFailureException {
