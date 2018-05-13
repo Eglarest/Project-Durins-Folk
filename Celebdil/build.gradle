@@ -42,4 +42,7 @@ dependencies {
     compile 'com.google.guava:guava:24.1-jre'
 
     compile 'org.postgresql:postgresql:42.2.2'
+
+    compile 'org.json:json:20090211'
+
 }

@@ -13,5 +13,6 @@ public class Contact {
     private Date firstContact;
     private Date lastContact;
     private List<Event> sharedEvents;
+    private short status; // 0: active 1: pending lower 2: pending higher 3: blocked by lower 4: blocked by higher 5: blocked by both
 
 }

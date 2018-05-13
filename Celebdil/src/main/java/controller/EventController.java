@@ -2,9 +2,10 @@ package main.java.controller;
 
 import main.java.data.Activity;
 import main.java.data.Address;
-import main.java.data.Event;
+import main.java.data.DatabaseEvent;
 import main.java.data.User;
 import main.java.data.UserGroup;
+import main.java.exception.InternalFailureException;
 import main.java.exception.InvalidParameterException;
 import main.java.service.ActivityService;
 import main.java.service.AddressService;
@@ -64,7 +65,7 @@ public class EventController {
      * @return
      */
     @RequestMapping(method = POST, value = "/user-events")
-    public @ResponseBody List<Event> getUserEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<DatabaseEvent> getUserEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
         String accountNumberString = allParams.get(ACCOUNT_NUMBER_KEY);
         String dateTime = allParams.get(ISO8601_DATE_TIME_TIMEZONE_KEY);
 
@@ -85,7 +86,7 @@ public class EventController {
      * @return
      */
     @RequestMapping(method = POST, value = "/group-events")
-    public @ResponseBody List<Event> getGroupEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<DatabaseEvent> getGroupEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
         String groupIdString = allParams.get(GROUP_ID_KEY);
         String dateTime = allParams.get(ISO8601_DATE_TIME_TIMEZONE_KEY);
 
@@ -99,8 +100,8 @@ public class EventController {
         return eventService.getEventsByUserGroupForDate(userGroup, date);
     }
 
-    @RequestMapping(method = POST, value = "/create-event")
-    public @ResponseBody Event createEvent(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
+    @RequestMapping(method = POST, value = "/create-event") // start/end, start/length, start/(years,months,days,hours,min,sec)
+    public @ResponseBody DatabaseEvent createEvent(@RequestParam Map<String, String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumberString = allParams.get(ACCOUNT_NUMBER_KEY);
         String eventName = allParams.get(EVENT_NAME_KEY);
         String activityName = allParams.get(ACTIVITY_NAME_KEY);
@@ -115,30 +116,30 @@ public class EventController {
         validationService.validateISODateTime(isoLength, ISO8601_LENGTH_KEY);
 
         Activity activity = activityService.getActivityByName(activityName);
-        List<Activity> activities = new ArrayList<>();
-        activities.add(activity);
+        List<UUID> activityIds = new ArrayList<>();
+        activityIds.add(activity.getActivityId());
+        List<UUID> attendingUsers = new ArrayList<>();
+        attendingUsers.add(UUID.fromString(accountNumberString));
 
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         Date date = new Date(localDateTime.toEpochSecond(ZoneOffset.UTC)*1000);
         LocalDateTime localLength = LocalDateTime.parse(isoLength, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         Date length = new Date(localLength.toEpochSecond(ZoneOffset.UTC)*1000);
 
-        Event event = new Event();
-        event.setStartDate(date);
-        event.setParent(null);
-        event.setLength(length);
-        event.setAddress(address);
-        event.setActivities(activities);
-        event.setName(eventName);
-        event = eventService.createNewEvent(event);
+        DatabaseEvent databaseEvent = new DatabaseEvent();
+        databaseEvent.setStartDate(date);
+        databaseEvent.setLength(length);
+        databaseEvent.setAddress(address);
+        databaseEvent.setActivities(activityIds);
+        databaseEvent.setName(eventName);
+        databaseEvent.setAttendingUsers(attendingUsers);
+        databaseEvent = eventService.createNewEvent(databaseEvent);
 
-        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumberString));
-
-        return eventService.addUserToEvent(event, user);
+        return databaseEvent;
     }
 
     @RequestMapping(method = POST, value = "/join-event")
-    public @ResponseBody Event joinEvent(@RequestParam Map<String,String> allParams) throws InvalidParameterException {
+    public @ResponseBody boolean joinEvent(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumberString = allParams.get(ACCOUNT_NUMBER_KEY);
         String eventIdString = allParams.get(EVENT_ID_KEY);
 
@@ -146,11 +147,8 @@ public class EventController {
         validationService.validateUUID(eventIdString, EVENT_ID_KEY);
 
         User user = userService.getUserByAccountNumber(UUID.fromString(accountNumberString));
-        Event event = eventService.getEventByEventId(UUID.fromString(eventIdString));
 
-        eventService.addUserToEvent(event, user);
-
-        return event;
+        return eventService.addUserToEvent(UUID.fromString(eventIdString), user.getAccountNumber());
     }
 
 }

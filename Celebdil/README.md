@@ -98,9 +98,48 @@ Spring                    : 4.1.4
 Spring-boot               : 2.0.1
 Spring-boot-autoconfigure : 2.0.1
 lombok                    : 1.16.20
-Gradle                    : past 2.12 (??)
+Gradle                    : 4.7
 Guava                     : 24.1-jre
 PostgreSQL-JDBC           : 42.2.2.2
+JSON                      : 20090211
+
+## Database Creation:
+You will need to install the following database code:
+PostgreSQL - 10
+* https://www.postgresql.org/download/
+The JDBC from PostgreSQL - 4.2
+* https://jdbc.postgresql.org/download.html
+
+Next create the databases:
+
+This will create 2 databases for you "durinsfolktest" and "durinsfolk". Which will be useful in testing locally, but will need to be populated with data.
+The select statements are to make sure the tables are properly formatted.
+
+From the command line run:
+* `psql -U postgres`
+* `create database durinsfolktest;`
+* `\c durinsfolktest;`
+* `create table Users (account_id uuid UNIQUE NOT NULL, title text, first_name text NOT NULL, middle_name text, surname text NOT NULL, suffix text, address json, join_date timestamp NOT NULL);`
+* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length bigint, address json, parent uuid, attendees uuid[], activities uuid[]);`
+* `create table Activities (activity_id uuid UNIQUE NOT NULL, name text NOT NULL, type text NOT NULL);`
+* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
+* `create table Messages (message_id uuid UNIQUE NOT NULL, content text, date timestamp NOT NULL, to_user uuid NOT NULL, from_user uuid NOT NULL);`
+* `create table UserGroups (group_id uuid UNIQUE NOT NULL, name text NOT NULL, creation_date timestamp NOT NULL, address json, owners uuid[] NOT NULL, members uuid[]);`
+* `create table Login (account_id uuid UNIQUE NOT NULL, username text UNIQUE NOT NULL, password text NOT NULL);`
+* `insert into messages values ('00000000-0000-0000-0000-000000000000', "Welcome to Project Durins Folk! Sit back and have an ale while you wait.", '2018-04-25 8:30:00pm', '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000');`
+* `select * from Users limit 1;`
+* `select * from Events limit 1;`
+* `select * from Activities limit 1;`
+* `select * from Contacts limit 1;`
+* `select * from Messages limit 1;`
+* `select * from UserGroups limit 1;`
+* `select * from Login limit 1`
+
+From the command line run:
+* `psql -U postgres`
+* `create database durinsfolk;`
+* `\c durinsfolk;`
+* same commands as above
 
 ## BUILD ON WINDOWS
 Add the gradle.bat file's directory to your $PATH environment variable

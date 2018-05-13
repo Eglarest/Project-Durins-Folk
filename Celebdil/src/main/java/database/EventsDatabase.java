@@ -1,12 +1,20 @@
 package main.java.database;
 
-import main.java.data.Event;
+import main.java.data.DatabaseEvent;
+import main.java.exception.InternalFailureException;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface EventsDatabase {
 
-    Event readEventById(UUID uuid);
+    DatabaseEvent readEventById(UUID eventId) throws InternalFailureException;
 
-    boolean writeEvent(Event event);
+    int writeEvent(DatabaseEvent databaseEvent) throws InternalFailureException;
+
+    List<UUID>  readUsersByEventId(UUID eventId) throws InternalFailureException;
+
+    int updateUsersByEventId(UUID eventId, List<UUID> allGroupUsers) throws InternalFailureException;
+
+    boolean isKeyAvailable(UUID uuid) throws InternalFailureException;
 }

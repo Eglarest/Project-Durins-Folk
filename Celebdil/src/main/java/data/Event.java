@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Deprecated
 public class Event {
 
     private String name;

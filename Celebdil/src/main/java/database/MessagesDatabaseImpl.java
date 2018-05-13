@@ -78,14 +78,14 @@ public class MessagesDatabaseImpl implements MessagesDatabase {
         return messages;
     }
 
-    public Message readMessageById(UUID uuid) throws InternalFailureException {
+    public Message readMessageById(UUID messageId) throws InternalFailureException {
         Message message = null;
         try {
             if(connection == null || connection.isClosed()) {
                 connection = postgreSQLJDBC.getConnection();
             }
             ResultSet resultSet = connection.prepareCall(String.format("SELECT * FROM %s WHERE %s = '%s';",
-                                                                        TABLE_NAME, MESSAGE_ID_COL, uuid)).executeQuery();
+                                                                        TABLE_NAME, MESSAGE_ID_COL, messageId)).executeQuery();
             if(resultSet.next()) {
                 message = getMessage(resultSet);
             }

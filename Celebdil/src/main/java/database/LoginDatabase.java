@@ -30,7 +30,8 @@ public class LoginDatabase {
             if(connection == null || connection.isClosed()) {
                 connection = postgreSQLJDBC.getConnection();
             }
-            ResultSet resultSet = connection.prepareCall(String.format("SELECT * FROM %s WHERE username = '%s';",TABLE_NAME,username)).executeQuery();
+            ResultSet resultSet = connection.prepareCall(String.format("SELECT * FROM %s WHERE %s = '%s';",
+                    TABLE_NAME, USERNAME_COL, username)).executeQuery();
             if(resultSet.next()) {
                 loginCredentials = new LoginCredentials();
                 loginCredentials.setUsername(resultSet.getString(USERNAME_COL));
