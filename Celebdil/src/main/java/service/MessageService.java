@@ -25,8 +25,7 @@ public class MessageService {
     }
 
     public Message getMessage(UUID messageId) throws InternalFailureException {
-        Message message = messagesDatabase.readMessageById(messageId);
-        return message;
+        return messagesDatabase.readMessageById(messageId);
     }
 
     public List<Message> getMessagesToUser(UUID accountNumber) throws InternalFailureException {

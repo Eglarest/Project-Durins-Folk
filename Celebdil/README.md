@@ -162,13 +162,12 @@ potentially: ./gradlew for another operating system
 
 * /login
 * /home
-
-### Mostly Stable
-
 * /send-message
 * /get-messages-to
 * /get-messages-from
 * /get-messages-between
+
+### Mostly Stable
 
 ### Turbulent
 
@@ -179,6 +178,7 @@ potentially: ./gradlew for another operating system
 
 ### Highly Turbulent
 
+* /create-contact
 * /create-user
 * /get-user
 * /find-users
@@ -250,32 +250,20 @@ From the command line run:
 * `psql -U postgres`
 * `create database durinsfolktest;`
 * `\c durinsfolktest;`
-* `create table Users (account_id uuid, title text, first_name text, middle_name text, surname text, suffix text, address json, join_date timestamp);`
-* `create table Events (event_id uuid, name text, date timestamp, length interval, address json, parent uuid, attendees uuid[], activities uuid[]);`
-* `create table Activities (activity_id uuid, name text, type text);`
-* `create table Contacts (lower_account_id uuid, higher_account_id uuid, first_contact timestamp, last_contact timestamp, shared_events uuid[]);`
-* `create table Messages (message_id uuid, content text, date timestamp, to_user uuid, from_user uuid);`
-* `create table UserGroups (group_id uuid, name text, creation_date timestamp, address json, owners uuid[], members uuid[]);`
-* `create table Login (account_id uuid, username text, password text);`
-* `select * from Users limit 1;`
-* `select * from Events limit 1;`
-* `select * from Activities limit 1;`
-* `select * from Contacts limit 1;`
-* `select * from Messages limit 1;`
-* `select * from UserGroups limit 1;`
-* `select * from Login limit 1`
+* run commands below
 
 From the command line run:
 * `psql -U postgres`
 * `create database durinsfolk;`
 * `\c durinsfolk;`
 * `create table Users (account_id uuid UNIQUE NOT NULL, title text, first_name text NOT NULL, middle_name text, surname text NOT NULL, suffix text, address json, join_date timestamp NOT NULL);`
-* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length interval NOT NULL, address json, parent uuid, attendees uuid[], activities uuid[]);`
+* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length bigint, address json, parent uuid, attendees uuid[], activities uuid[]);`
 * `create table Activities (activity_id uuid UNIQUE NOT NULL, name text NOT NULL, type text NOT NULL);`
-* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
+* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], contactStatus smallint, CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
 * `create table Messages (message_id uuid UNIQUE NOT NULL, content text, date timestamp NOT NULL, to_user uuid NOT NULL, from_user uuid NOT NULL);`
 * `create table UserGroups (group_id uuid UNIQUE NOT NULL, name text NOT NULL, creation_date timestamp NOT NULL, address json, owners uuid[] NOT NULL, members uuid[]);`
 * `create table Login (account_id uuid UNIQUE NOT NULL, username text UNIQUE NOT NULL, password text NOT NULL);`
+* `insert into messages values ('00000000-0000-0000-0000-000000000000', "Welcome to Project Durins Folk! Sit back and have an ale while you wait.", '2018-04-25 8:30:00pm', '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000');`
 * `select * from Users limit 1;`
 * `select * from Events limit 1;`
 * `select * from Activities limit 1;`

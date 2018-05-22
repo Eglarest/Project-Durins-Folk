@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import static main.java.database.DatabaseTransformers.arrayToStringList;
 import static main.java.database.DatabaseTransformers.formatArrayOfUUID;
+import static main.java.database.DatabaseTransformers.formatNullableToStringable;
 import static main.java.database.DatabaseTransformers.getAddress;
 import static main.java.database.DatabaseTransformers.getJSON;
 import static main.java.database.DatabaseTransformers.stringListToUUIDList;
@@ -83,13 +84,11 @@ public class EventsDatabaseImpl implements EventsDatabase {
             List<UUID> attendingIds = databaseEvent.getAttendingUsers();
             List<UUID> activityIds = databaseEvent.getActivities();
 
-            UUID parentId = databaseEvent.getParent();
-            String parentUUID = (parentId == null ? "null" : "'" + parentId + "'");
-
             String query =String.format(
                     "INSERT INTO %s VALUES ('%s', '%s', to_timestamp(%s), '%s', '%s', %s, %s, %s);", TABLE_NAME, databaseEvent.getEventId(),
                     databaseEvent.getName(), databaseEvent.getStartDate().getTime(), databaseEvent.getLength().getTime(),
-                    getJSON(databaseEvent.getAddress()), parentUUID, formatArrayOfUUID(attendingIds), formatArrayOfUUID(activityIds));
+                    getJSON(databaseEvent.getAddress()), formatNullableToStringable(databaseEvent.getParent()), formatArrayOfUUID(attendingIds),
+                    formatArrayOfUUID(activityIds));
 
             writes = connection.prepareCall(query).executeUpdate();
         } catch(SQLException e) {

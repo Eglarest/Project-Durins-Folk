@@ -9,6 +9,7 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +36,14 @@ public class DatabaseTransformers {
         List<UUID> uuidList = new ArrayList();
         stringList.forEach(string -> uuidList.add(UUID.fromString(string)));
         return uuidList;
+    }
+
+    public static String formatNullableToStringable(Object object) {
+        return (object == null ? "null" : "'" + object.toString() + "'");
+    }
+
+    public static String formatNullableDate(Date date) {
+        return date == null ? "null" : String.format("to_timestamp(%s)", date.getTime());
     }
 
     public static Address getAddress(String jsonString) throws JSONException {
