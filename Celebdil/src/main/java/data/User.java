@@ -11,7 +11,7 @@ public class User {
     private String title;
     private String firstName;
     private String middleName;
-    private String surName;
+    private String surname;
     private String suffix;
     private UUID accountNumber;
     private Address address;

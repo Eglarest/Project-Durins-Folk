@@ -74,16 +74,16 @@ Celebdil/src/main/java
     - [X] EventService
     - [X] MessageService
     - [ ] UserGroupService
-    - [ ] UserService
+    - [X] UserService
     - [ ] ValidationService
   - [ ] Finish database logic
     - [X] ActivitiesDatabase
-    - [ ] ContactsDatabase
+    - [X] ContactsDatabase
     - [X] EventsDatabase
-    - [ ] LoginDatabase (Temporary)
+    - [X] LoginDatabase (Temporary)
     - [X] MessagesDatabase
     - [ ] UserGroupsDatabase
-    - [ ] UsersDatabase
+    - [X] UsersDatabase
     - [X] PostgreSQLJDBC
   - [ ] Finishing Touches
     - [ ] Check Controller DateTime Timezone Logic
@@ -169,19 +169,20 @@ potentially: ./gradlew for another operating system
 
 ### Mostly Stable
 
-### Turbulent
-
 * /user-events
 * /group-events
 * /join-event
 * /create-event
 
-### Highly Turbulent
+### Turbulent
 
 * /create-contact
 * /create-user
 * /get-user
 * /find-users
+
+### Highly Turbulent
+
 * /get-user-group
 * /find-user-groups
 * /add-user-to-group

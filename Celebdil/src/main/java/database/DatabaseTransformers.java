@@ -84,6 +84,10 @@ public class DatabaseTransformers {
         return formattedString;
     }
 
+    public static String addWildcards(String string) {
+        return "%"+ string.trim().replace(' ', '%') + "%";
+    }
+
     private static String addJSON(String key, String value) {
         return "\"" + key + "\": \"" + value + "\", ";
     }

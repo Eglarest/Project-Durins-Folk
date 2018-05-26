@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static main.java.database.DatabaseTransformers.addWildcards;
+
 @Repository
 public class ActivitiesDatabaseImpl implements ActivitiesDatabase{
 
@@ -133,9 +135,5 @@ public class ActivitiesDatabaseImpl implements ActivitiesDatabase{
         activity.setName(resultSet.getString(NAME_COL));
         activity.setType(resultSet.getString(TYPE_COL));
         return activity;
-    }
-
-    private String addWildcards(String string) {
-        return "%"+ string.trim().replace(' ', '%') + "%";
     }
 }

@@ -47,7 +47,36 @@ public class LoginDatabase {
         return loginCredentials;
     }
 
-    public String writePassword(String username, String password){
-        return "OldPassword";
+    public int writeNewUser(String username, String password) throws InternalFailureException {
+        int writes;
+        try {
+            if(connection == null || connection.isClosed()) {
+                connection = postgreSQLJDBC.getConnection();
+            }
+
+            String query = String.format(
+                    "INSERT INTO %s VALUES ('%s', '%s');", TABLE_NAME, username, password);
+
+            writes = connection.prepareCall(query).executeUpdate();
+        } catch(SQLException e) {
+            throw new InternalFailureException(e.getMessage());
+        }
+        return writes;
+    }
+
+    public int updatePassword(String username, String password) throws InternalFailureException {
+        int writes;
+        try {
+            if(connection == null || connection.isClosed()) {
+                connection = postgreSQLJDBC.getConnection();
+            }
+
+            writes = connection.prepareCall(String.format(
+                    "UPDATE %s SET %s = %s WHERE %s = '%s';", TABLE_NAME, PASSWORD_COL, password, USERNAME_COL, username)).executeUpdate();
+
+        } catch(SQLException e) {
+            throw new InternalFailureException(e.getMessage());
+        }
+        return writes;
     }
 }

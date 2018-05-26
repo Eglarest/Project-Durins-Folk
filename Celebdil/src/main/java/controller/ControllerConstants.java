@@ -11,7 +11,7 @@ public class ControllerConstants {
     public static final String GROUP_ID_KEY = "groupId";
     public static final String FIRST_NAME_KEY = "firstName";
     public static final String MIDDLE_NAME_KEY = "middleName";
-    public static final String SUR_NAME_KEY = "surName";
+    public static final String SURNAME_KEY = "surname";
     public static final String SUFFIX_KEY = "suffix";
     public static final String TITLE_KEY = "title";
     public static final String GROUP_NAME_KEY = "groupName";
