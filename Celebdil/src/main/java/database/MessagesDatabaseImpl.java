@@ -16,7 +16,7 @@ import java.util.UUID;
 public class MessagesDatabaseImpl implements MessagesDatabase {
 
     @Autowired
-    PostgreSQLJDBC postgreSQLJDBC;
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     public static final String TABLE_NAME = "Messages";
     public static final String MESSAGE_ID_COL = "message_id";

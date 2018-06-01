@@ -10,4 +10,8 @@ public class InvalidLoginException extends Exception{
         super(message);
     }
 
+    public InvalidLoginException(String message, Exception e) {
+        super(message, e);
+    }
+
 }

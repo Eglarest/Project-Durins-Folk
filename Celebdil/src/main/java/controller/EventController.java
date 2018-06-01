@@ -4,7 +4,6 @@ import main.java.data.Activity;
 import main.java.data.Address;
 import main.java.data.DatabaseEvent;
 import main.java.data.User;
-import main.java.data.UserGroup;
 import main.java.exception.InternalFailureException;
 import main.java.exception.InvalidParameterException;
 import main.java.service.ActivityService;
@@ -75,8 +74,7 @@ public class EventController {
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         Date date = new Date(localDateTime.toEpochSecond(ZoneOffset.UTC)*1000);
 
-        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumberString));
-        return eventService.getEventsByUserForDate(user, date);
+        return eventService.getEventsByUserIdForDate(UUID.fromString(accountNumberString), date);
     }
 
     /**
@@ -86,7 +84,7 @@ public class EventController {
      * @return
      */
     @RequestMapping(method = POST, value = "/group-events")
-    public @ResponseBody List<DatabaseEvent> getGroupEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException {
+    public @ResponseBody List<DatabaseEvent> getGroupEvents(@RequestParam Map<String, String> allParams) throws InvalidParameterException, InternalFailureException {
         String groupIdString = allParams.get(GROUP_ID_KEY);
         String dateTime = allParams.get(ISO8601_DATE_TIME_TIMEZONE_KEY);
 
@@ -96,8 +94,7 @@ public class EventController {
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         Date date = new Date(localDateTime.toEpochSecond(ZoneOffset.UTC)*1000);
 
-        UserGroup userGroup = userGroupService.getUserGroupByGroupId(UUID.fromString(groupIdString));
-        return eventService.getEventsByUserGroupForDate(userGroup, date);
+        return eventService.getEventsByGroupIdForDate(UUID.fromString(groupIdString), date);
     }
 
     @RequestMapping(method = POST, value = "/create-event") // start/end, start/length, start/(years,months,days,hours,min,sec)

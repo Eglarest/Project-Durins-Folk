@@ -10,4 +10,8 @@ public class InvalidParameterException extends Exception {
         super(message);
     }
 
+    public InvalidParameterException(String message, Exception e) {
+        super(message, e);
+    }
+
 }

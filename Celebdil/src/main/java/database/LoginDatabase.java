@@ -16,7 +16,7 @@ import java.util.UUID;
 public class LoginDatabase {
 
     @Autowired
-    PostgreSQLJDBC postgreSQLJDBC;
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     public static final String TABLE_NAME = "Login";
     public static final String ACCOUNT_ID_COL = "account_id";

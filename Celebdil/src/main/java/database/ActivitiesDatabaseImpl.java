@@ -18,7 +18,7 @@ import static main.java.database.DatabaseTransformers.addWildcards;
 public class ActivitiesDatabaseImpl implements ActivitiesDatabase{
 
     @Autowired
-    PostgreSQLJDBC postgreSQLJDBC;
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     public static final String TABLE_NAME = "Events";
     public static final String ACTIVITY_ID_COL = "activity_id";

@@ -1,14 +1,11 @@
 package main.java.service;
 
 import main.java.data.DatabaseEvent;
-import main.java.data.User;
-import main.java.data.UserGroup;
 import main.java.database.EventsDatabase;
 import main.java.exception.InternalFailureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +16,7 @@ import java.util.UUID;
 @Service
 public class EventService {
 
-    private static final int UUID_ATTEMPTS = 3;
+    public static final int UUID_ATTEMPTS = 3;
 
     @Autowired
     EventsDatabase eventsDatabase;
@@ -42,27 +39,12 @@ public class EventService {
                             "database may be getting full or retries may need to be increased.");
     }
 
-    public List<DatabaseEvent> getEventsByUserForDate(User user, Date date) throws InternalFailureException {
-        return eventsDatabase.readEventsByUserAndDate(user.getAccountNumber(), date);
+    public List<DatabaseEvent> getEventsByUserIdForDate(UUID accountNumber, Date date) throws InternalFailureException {
+        return eventsDatabase.readEventsByUserAndDate(accountNumber, date);
     }
 
-    //TODO: Decide a representation for this in the Database
-    //TODO: Remove this and move it into the groups service, user groups will have events they support, but events won't have user groups
-    public List<DatabaseEvent> getEventsByUserGroupForDate(UserGroup userGroup, Date date) {
-        DatabaseEvent databaseEvent = new DatabaseEvent();
-        databaseEvent.setAddress(userGroup.getAddress());
-        databaseEvent.setActivities(new ArrayList<>());
-        Date length = new Date();
-        length.setTime(60000);
-        databaseEvent.setLength(length);
-        databaseEvent.setParent(null);
-        databaseEvent.setStartDate(date);
-        databaseEvent.setAttendingUsers(userGroup.getMembers());
-        ArrayList<DatabaseEvent> databaseEvents = new ArrayList<>();
-        databaseEvents.add(databaseEvent);
-        databaseEvents.add(databaseEvent);
-        databaseEvents.add(databaseEvent);
-        return databaseEvents;
+    public List<DatabaseEvent> getEventsByGroupIdForDate(UUID groupId, Date date) throws InternalFailureException {
+        return eventsDatabase.readEventsByGroupAndDate(groupId, date);
     }
 
     public boolean addUserToEvent(UUID eventId, UUID accountNumber) throws InternalFailureException {

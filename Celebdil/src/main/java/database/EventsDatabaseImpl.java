@@ -25,7 +25,7 @@ import static main.java.database.DatabaseTransformers.stringListToUUIDList;
 public class EventsDatabaseImpl implements EventsDatabase {
 
     @Autowired
-    PostgreSQLJDBC postgreSQLJDBC;
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     public static final String TABLE_NAME = "Events";
     public static final String EVENT_ID_COL = "event_id";
@@ -36,6 +36,7 @@ public class EventsDatabaseImpl implements EventsDatabase {
     public static final String PARENT_COL = "parent";
     public static final String ATTENDEES_COL = "attendees";
     public static final String ACTIVITIES_COL = "activities";
+    public static final String SUPPORTING_GROUPS_COL = "supporting_groups";
     private static Connection connection;
 
     public DatabaseEvent readEventById(UUID eventId) throws InternalFailureException {
@@ -65,6 +66,25 @@ public class EventsDatabaseImpl implements EventsDatabase {
                     "SELECT * FROM %s WHERE %s @> '{\"%s\"}' AND date_trunc('day',%s) = date_trunc" +
                             "('day',TIMESTAMP WITH TIME ZONE 'epoch' + %s * INTERVAL '1 second');",
                     TABLE_NAME, ATTENDEES_COL, userId, DATE_COL, date.getTime())).executeQuery();
+            while(resultSet.next()) {
+                databaseEventList.add(getEvent(resultSet));
+            }
+        } catch(SQLException | JSONException e) {
+            throw new InternalFailureException(e.getMessage());
+        }
+        return databaseEventList;
+    }
+
+    public List<DatabaseEvent> readEventsByGroupAndDate(UUID groupId, Date date) throws InternalFailureException {
+        List<DatabaseEvent> databaseEventList = new ArrayList<>();
+        try {
+            if(connection == null || connection.isClosed()) {
+                connection = postgreSQLJDBC.getConnection();
+            }
+            ResultSet resultSet = connection.prepareCall(String.format(
+                    "SELECT * FROM %s WHERE %s @> '{\"%s\"}' AND date_trunc('day',%s) = date_trunc" +
+                            "('day',TIMESTAMP WITH TIME ZONE 'epoch' + %s * INTERVAL '1 second');",
+                    TABLE_NAME, SUPPORTING_GROUPS_COL, groupId, DATE_COL, date.getTime())).executeQuery();
             while(resultSet.next()) {
                 databaseEventList.add(getEvent(resultSet));
             }

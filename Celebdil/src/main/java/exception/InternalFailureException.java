@@ -10,4 +10,8 @@ public class InternalFailureException extends Exception {
         super(message);
     }
 
+    public InternalFailureException(String message, Exception e) {
+        super(message, e);
+    }
+
 }

@@ -23,7 +23,7 @@ import static main.java.database.DatabaseTransformers.getJSON;
 public class UsersDatabaseImpl implements UsersDatabase {
 
     @Autowired
-    PostgreSQLJDBC postgreSQLJDBC;
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     public static final String TABLE_NAME = "users";
     public static final String ACCOUNT_ID_COL = "account_id";

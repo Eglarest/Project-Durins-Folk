@@ -23,7 +23,7 @@ import static main.java.database.DatabaseTransformers.stringListToUUIDList;
 public class ContactsDatabaseImpl implements ContactsDatabase {
 
     @Autowired
-    PostgreSQLJDBC postgreSQLJDBC;
+    private PostgreSQLJDBC postgreSQLJDBC;
 
     public static final String TABLE_NAME = "Contacts";
     public static final String LOWER_ACCOUNT_COL = "lower_account_id";

@@ -73,7 +73,7 @@ Celebdil/src/main/java
     - [ ] CredentialService
     - [X] EventService
     - [X] MessageService
-    - [ ] UserGroupService
+    - [X] UserGroupService
     - [X] UserService
     - [ ] ValidationService
   - [ ] Finish database logic
@@ -82,7 +82,7 @@ Celebdil/src/main/java
     - [X] EventsDatabase
     - [X] LoginDatabase (Temporary)
     - [X] MessagesDatabase
-    - [ ] UserGroupsDatabase
+    - [X] UserGroupsDatabase
     - [X] UsersDatabase
     - [X] PostgreSQLJDBC
   - [ ] Finishing Touches
@@ -119,10 +119,16 @@ From the command line run:
 * `psql -U postgres`
 * `create database durinsfolktest;`
 * `\c durinsfolktest;`
+* run commands below
+
+From the command line run:
+* `psql -U postgres`
+* `create database durinsfolk;`
+* `\c durinsfolk;`
 * `create table Users (account_id uuid UNIQUE NOT NULL, title text, first_name text NOT NULL, middle_name text, surname text NOT NULL, suffix text, address json, join_date timestamp NOT NULL);`
-* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length bigint, address json, parent uuid, attendees uuid[], activities uuid[]);`
+* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length bigint, address json, parent uuid, attendees uuid[], activities uuid[], supporting_groups uuid[]);`
 * `create table Activities (activity_id uuid UNIQUE NOT NULL, name text NOT NULL, type text NOT NULL);`
-* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
+* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], contactStatus smallint, CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
 * `create table Messages (message_id uuid UNIQUE NOT NULL, content text, date timestamp NOT NULL, to_user uuid NOT NULL, from_user uuid NOT NULL);`
 * `create table UserGroups (group_id uuid UNIQUE NOT NULL, name text NOT NULL, creation_date timestamp NOT NULL, address json, owners uuid[] NOT NULL, members uuid[]);`
 * `create table Login (account_id uuid UNIQUE NOT NULL, username text UNIQUE NOT NULL, password text NOT NULL);`
@@ -134,6 +140,7 @@ From the command line run:
 * `select * from Messages limit 1;`
 * `select * from UserGroups limit 1;`
 * `select * from Login limit 1`
+
 
 From the command line run:
 * `psql -U postgres`
@@ -180,13 +187,12 @@ potentially: ./gradlew for another operating system
 * /create-user
 * /get-user
 * /find-users
-
-### Highly Turbulent
-
 * /get-user-group
 * /find-user-groups
 * /add-user-to-group
 * /create-user-group
+
+### Highly Turbulent
 
 ## Setting up IntelliJ:
 Project is Celebdil
@@ -234,41 +240,3 @@ Music:
 * Spotify
   * https://open.spotify.com/user/keegansymmes/playlist/4WebbTLBrqL7QNfZJXnJUK?si=-v55pIf5Q3e1EurXFY2JBA
     * Add something worth listening to (preference for hobbit and dwarf music)
-
-## Database Creation:
-You will need to install the following database code:
-PostgreSQL - 10
-* https://www.postgresql.org/download/
-The JDBC from PostgreSQL - 4.2
-* https://jdbc.postgresql.org/download.html
-
-Next create the databases:
-
-This will create 2 databases for you "durinsfolktest" and "durinsfolk". Which will be useful in testing locally, but will need to be populated with data.
-The select statements are to make sure the tables are properly formatted.
-
-From the command line run:
-* `psql -U postgres`
-* `create database durinsfolktest;`
-* `\c durinsfolktest;`
-* run commands below
-
-From the command line run:
-* `psql -U postgres`
-* `create database durinsfolk;`
-* `\c durinsfolk;`
-* `create table Users (account_id uuid UNIQUE NOT NULL, title text, first_name text NOT NULL, middle_name text, surname text NOT NULL, suffix text, address json, join_date timestamp NOT NULL);`
-* `create table Events (event_id uuid UNIQUE NOT NULL, name text NOT NULL, date timestamp NOT NULL, length bigint, address json, parent uuid, attendees uuid[], activities uuid[]);`
-* `create table Activities (activity_id uuid UNIQUE NOT NULL, name text NOT NULL, type text NOT NULL);`
-* `create table Contacts (lower_account_id uuid NOT NULL, higher_account_id uuid NOT NULL, first_contact timestamp, last_contact timestamp, shared_events uuid[], contactStatus smallint, CHECK (lower_account_id < higher_account_id), UNIQUE (lower_account_id, higher_account_id));`
-* `create table Messages (message_id uuid UNIQUE NOT NULL, content text, date timestamp NOT NULL, to_user uuid NOT NULL, from_user uuid NOT NULL);`
-* `create table UserGroups (group_id uuid UNIQUE NOT NULL, name text NOT NULL, creation_date timestamp NOT NULL, address json, owners uuid[] NOT NULL, members uuid[]);`
-* `create table Login (account_id uuid UNIQUE NOT NULL, username text UNIQUE NOT NULL, password text NOT NULL);`
-* `insert into messages values ('00000000-0000-0000-0000-000000000000', "Welcome to Project Durins Folk! Sit back and have an ale while you wait.", '2018-04-25 8:30:00pm', '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000');`
-* `select * from Users limit 1;`
-* `select * from Events limit 1;`
-* `select * from Activities limit 1;`
-* `select * from Contacts limit 1;`
-* `select * from Messages limit 1;`
-* `select * from UserGroups limit 1;`
-* `select * from Login limit 1`

@@ -18,15 +18,6 @@ public class UserGroup {
     private Date creationDate;
     //TODO: Add Description
 
-    public void addMember(UUID userId) {
-        if(members == null) {
-            members = new ArrayList<>();
-        }
-        if(!members.contains(userId)) {
-            members.add(userId);
-        }
-    }
-
     public void addOwner(UUID userId) {
         if(owners == null) {
             owners = new ArrayList<>();

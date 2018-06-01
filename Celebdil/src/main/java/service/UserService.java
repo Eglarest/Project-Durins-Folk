@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     UsersDatabase usersDatabase;
 
-    int UUID_ATTEMPTS = 3;
+    public static final int UUID_ATTEMPTS = 3;
 
     /**
      * Get the User by their account number

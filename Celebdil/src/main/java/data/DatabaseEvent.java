@@ -18,5 +18,6 @@ public class DatabaseEvent {
     private UUID parent;
     private List<UUID> attendingUsers;
     private UUID eventId;
+    private List<UUID> supportingGroups;
 
 }

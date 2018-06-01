@@ -13,11 +13,13 @@ public interface EventsDatabase {
 
     int writeEvent(DatabaseEvent databaseEvent) throws InternalFailureException;
 
-    List<UUID>  readUsersByEventId(UUID eventId) throws InternalFailureException;
+    List<UUID> readUsersByEventId(UUID eventId) throws InternalFailureException;
 
     int updateUsersByEventId(UUID eventId, List<UUID> allGroupUsers) throws InternalFailureException;
 
     boolean isKeyAvailable(UUID uuid) throws InternalFailureException;
 
     List<DatabaseEvent> readEventsByUserAndDate(UUID userId, Date date) throws InternalFailureException;
+
+    List<DatabaseEvent> readEventsByGroupAndDate(UUID groupId, Date date) throws InternalFailureException;
 }
