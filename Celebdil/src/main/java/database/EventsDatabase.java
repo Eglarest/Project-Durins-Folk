@@ -15,7 +15,11 @@ public interface EventsDatabase {
 
     List<UUID> readUsersByEventId(UUID eventId) throws InternalFailureException;
 
+    List<UUID> readUserGroupsById(UUID eventId) throws InternalFailureException;
+
     int updateUsersByEventId(UUID eventId, List<UUID> allGroupUsers) throws InternalFailureException;
+
+    int updateUserGroupsByEventId(UUID eventId, List<UUID> userGroups) throws InternalFailureException;
 
     boolean isKeyAvailable(UUID uuid) throws InternalFailureException;
 

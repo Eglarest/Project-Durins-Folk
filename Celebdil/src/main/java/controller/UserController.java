@@ -49,8 +49,7 @@ public class UserController {
     public @ResponseBody User getUserData(@RequestParam Map<String,String> allParams) throws InvalidParameterException, InternalFailureException {
         String accountNumber = allParams.get(ACCOUNT_NUMBER_KEY);
         validationService.validateUUID(accountNumber, ACCOUNT_NUMBER_KEY);
-        User user = userService.getUserByAccountNumber(UUID.fromString(accountNumber));
-        return user;
+        return userService.getUserByAccountNumber(UUID.fromString(accountNumber));
     }
 
     /**

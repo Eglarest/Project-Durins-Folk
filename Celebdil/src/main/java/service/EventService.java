@@ -25,14 +25,13 @@ public class EventService {
         return eventsDatabase.readEventById(eventId);
     }
 
-    public DatabaseEvent createNewEvent(DatabaseEvent databaseEvent) throws InternalFailureException {
+    public int createNewEvent(DatabaseEvent databaseEvent) throws InternalFailureException {
         UUID uuid;
         for(int i = 0; i < UUID_ATTEMPTS; i++) {
             uuid = UUID.randomUUID();
             if(eventsDatabase.isKeyAvailable(uuid)) {
                 databaseEvent.setEventId(uuid);
-                eventsDatabase.writeEvent(databaseEvent);
-                return databaseEvent;
+                return eventsDatabase.writeEvent(databaseEvent);
             }
         }
         throw new InternalFailureException("Unable to find available Events Database Key, " +
@@ -52,6 +51,15 @@ public class EventService {
         if(!users.contains(accountNumber)) {
             users.add(accountNumber);
             eventsDatabase.updateUsersByEventId(eventId, users);
+        }
+        return true;
+    }
+
+    public boolean addUserGroupToEvent(UUID eventId, UUID groupId) throws InternalFailureException {
+        List<UUID> userGroups = eventsDatabase.readUserGroupsById(eventId);
+        if(!userGroups.contains(groupId)) {
+            userGroups.add(groupId);
+            eventsDatabase.updateUserGroupsByEventId(eventId, userGroups);
         }
         return true;
     }

@@ -131,6 +131,20 @@ public class EventsDatabaseImpl implements EventsDatabase {
         }
         return writes;
     }
+    public int updateUserGroupsByEventId(UUID eventId, List<UUID> userGroups) throws InternalFailureException {
+        int writes;
+        try {
+            if(connection == null || connection.isClosed()) {
+                connection = postgreSQLJDBC.getConnection();
+            }
+
+            writes = connection.prepareCall(String.format(
+                    "UPDATE %s SET %s = %s WHERE %s = '%s';", TABLE_NAME, SUPPORTING_GROUPS_COL, formatArrayOfUUID(userGroups), EVENT_ID_COL, eventId)).executeUpdate();
+        } catch(SQLException e) {
+            throw new InternalFailureException(e.getMessage());
+        }
+        return writes;
+    }
 
     public List<UUID> readUsersByEventId(UUID eventId) throws InternalFailureException {
         List<UUID> attendingUsers = new ArrayList<>();
@@ -147,6 +161,23 @@ public class EventsDatabaseImpl implements EventsDatabase {
             throw new InternalFailureException(e.getMessage());
         }
         return attendingUsers;
+    }
+
+    public List<UUID> readUserGroupsById(UUID eventId) throws InternalFailureException {
+        List<UUID> supportingGroups = new ArrayList<>();
+        try {
+            if(connection == null || connection.isClosed()) {
+                connection = postgreSQLJDBC.getConnection();
+            }
+            ResultSet resultSet = connection.prepareCall(String.format("SELECT %s FROM %s WHERE %s = '%s';",
+                    SUPPORTING_GROUPS_COL, TABLE_NAME, EVENT_ID_COL, eventId)).executeQuery();
+            if(resultSet.next()) {
+                supportingGroups = stringListToUUIDList(arrayToStringList(resultSet.getArray(SUPPORTING_GROUPS_COL)));
+            }
+        } catch(SQLException e) {
+            throw new InternalFailureException(e.getMessage());
+        }
+        return supportingGroups;
     }
 
     public boolean isKeyAvailable(UUID eventId) throws InternalFailureException {
@@ -169,8 +200,8 @@ public class EventsDatabaseImpl implements EventsDatabase {
         DatabaseEvent databaseEvent = new DatabaseEvent();
         databaseEvent.setEventId(UUID.fromString(resultSet.getString(EVENT_ID_COL)));
         databaseEvent.setName(resultSet.getString(NAME_COL));
-        databaseEvent.setStartDate(new Date(resultSet.getDate(DATE_COL).getTime()));
-        databaseEvent.setLength(new Date(resultSet.getInt(LENGTH_COL)));
+        databaseEvent.setStartDate(new Date(resultSet.getTimestamp(DATE_COL).getTime()));
+        databaseEvent.setLength(new Date(resultSet.getInt(LENGTH_COL)*1000));
         databaseEvent.setAddress(getAddress(resultSet.getString(ADDRESS_COL)));
         String parentString = resultSet.getString(PARENT_COL);
         UUID parent = parentString == null ? null : UUID.fromString(parentString);

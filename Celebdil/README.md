@@ -31,25 +31,25 @@ Celebdil/src/main/java
       *   service
       *   database
     - Add data as necessary
-  - [ ] Get "Business objectives" for p0 (minimal viable product)
+  - [X] Get "Business objectives" for p0 (minimal viable product)
     -  We need the following APIs working for p0 (working list):
       - [X] /login
         - log in a created user
-      - [ ] /get-user
+      - [X] /get-user
         - get and return a user their correct data
-      - [ ] /get-user-group
+      - [X] /get-user-group
         - get a groups details
       - [X] /home
         - provide a personalized home message to a user
-      - [ ] /user-events
+      - [X] /user-events
         - provide a user's events for at least 1 day
-      - [ ] /group-events
+      - [X] /group-events
         - provide a group's events for at least 1 day
-      - [ ] /join-event
+      - [X] /join-event
         - allow a user to join a created event
-      - [ ] /create-event
+      - [X] /create-event
         - allow a user to create an event
-      - [ ] /add-user-to-group
+      - [X] /add-user-to-group
         - allow a user to join a created group
       - [X] /send-message
         - allow a user to send a message
@@ -67,16 +67,16 @@ Celebdil/src/main/java
     - [X] MessageController
     - [X] UserController
     - [X] UserGroupController
-  - [ ] Finish service logic
+  - [X] Finish service logic
     - [X] ActivityService
-    - [ ] AddressService
-    - [ ] CredentialService
+    - [X] AddressService
+    - [X] CredentialService
     - [X] EventService
     - [X] MessageService
     - [X] UserGroupService
     - [X] UserService
-    - [ ] ValidationService
-  - [ ] Finish database logic
+    - [X] ValidationService
+  - [X] Finish database logic
     - [X] ActivitiesDatabase
     - [X] ContactsDatabase
     - [X] EventsDatabase
@@ -86,7 +86,7 @@ Celebdil/src/main/java
     - [X] UsersDatabase
     - [X] PostgreSQLJDBC
   - [ ] Finishing Touches
-    - [ ] Check Controller DateTime Timezone Logic
+    - [X] Check Controller DateTime Timezone Logic
     - [ ] Remove Redundant nullPointer checks
     - [ ] Finalize Exception Logic
     - [ ] Add size restrictions to database input at database level

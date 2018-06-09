@@ -25,6 +25,9 @@ public class DatabaseTransformers {
 
     public static List<String> arrayToStringList(Array array) throws SQLException {
         List<String> list = new ArrayList();
+        if(array == null) {
+            return list;
+        }
         ResultSet resultSet = array.getResultSet();
         while(resultSet.next()) {
             list.add(resultSet.getString(2));
