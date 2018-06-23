@@ -1,0 +1,14 @@
+{
+  "development": {
+    "baseUrl": "http://localhost:5000"
+  },
+  "route": {
+    "login": "/login",
+    "message": {
+      "send": "/send-message",
+      "to": "/get-messages-to",
+      "from": "/get-messages-from",
+      "between": "/get-messages-between"
+    }
+  }
+}
